@@ -20,8 +20,14 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
+flutter_native_splash:
+  color: "#121212"
+  image: "./assets/images/splash.png"
+  android: true
+  ios: true
+
 flutter_launcher_icons:
   android: true
   remove_alpha_ios: true
   ios: true
-  image_path: "./assets/icons/musiku.jpg"
+  image_path: "./assets/icons/musiku.png"
