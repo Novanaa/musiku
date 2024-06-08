@@ -23,6 +23,21 @@
     assets:
       - ./assets/images/
       - ./assets/icons/
+    fonts: 
+      - family: Poppins
+        fonts:
+          - asset: ./assets/fonts/poppins-light.ttf
+            weight: 300
+          - asset: ./assets/fonts/poppins-regular.ttf
+            weight: 400
+          - asset: ./assets/fonts/poppins-medium.ttf
+            weight: 500
+          - asset: ./assets/fonts/poppins-semibold.ttf
+            weight: 600
+          - asset: ./assets/fonts/poppins-bold.ttf
+            weight: 700
+          - asset: ./assets/fonts/poppins-extrabold.ttf
+            weight: 800
 
   flutter_native_splash:
     color: "#121212"
