@@ -22,6 +22,7 @@ class MainApp extends StatelessWidget {
           fontFamily: "Poppins",
           scaffoldBackgroundColor: ColorConstants.backgroundColor,
           textTheme: Theme.of(context).textTheme.apply(
+              fontFamily: "Poppins",
               displayColor: ColorConstants.textColor,
               bodyColor: ColorConstants.textColor)),
     );
