@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class ColorConstants {
   static const Color backgroundColor = Color(0xff121212);
   static const Color textColor = Color(0xffFEFEFE);
+  static const Color iconColor = Color(0xffFEFEFE);
   static const Color borderColor = Color(0xff656569);
   static const Color inputColor = Color(0xff333336);
   static const Color modalBackgroundColor = Color(0xff191919);
