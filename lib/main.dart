@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:musiku/screens/layout.dart';
+import 'package:flutter/services.dart';
 
 void main() {
-  runApp(const MainApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((value) => runApp(const MainApp()));
 }
 
 class MainApp extends StatelessWidget {
