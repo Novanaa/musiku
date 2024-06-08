@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:musiku/constants/color.dart';
 import 'package:musiku/screens/layout.dart';
 import 'package:flutter/services.dart';
 
@@ -16,7 +17,13 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: const Layout(),
-      theme: ThemeData(splashColor: Colors.transparent),
+      theme: ThemeData(
+          splashColor: Colors.transparent,
+          fontFamily: "Poppins",
+          scaffoldBackgroundColor: ColorConstants.backgroundColor,
+          textTheme: Theme.of(context).textTheme.apply(
+              displayColor: ColorConstants.textColor,
+              bodyColor: ColorConstants.textColor)),
     );
   }
 }
