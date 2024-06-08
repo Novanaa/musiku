@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:musiku/constants/color.dart';
-import 'package:musiku/components/text.dart';
+import 'package:musiku/screens/layout.dart';
 
 void main() {
   runApp(const MainApp());
@@ -11,14 +10,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        backgroundColor: ColorConstants.backgroundColor,
-        body: Center(
-          child: TextComponent(text: 'Hello, World!'),
-        ),
-      ),
+      home: const Layout(),
+      theme: ThemeData(splashColor: Colors.transparent),
     );
   }
 }
