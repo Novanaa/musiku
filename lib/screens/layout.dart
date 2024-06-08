@@ -44,7 +44,7 @@ class _LayoutState extends State<Layout> {
   BottomNavigationBar bottomNavbar() {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
-      backgroundColor: ColorConstants.backgroundColor,
+      backgroundColor: ColorConstants.modalBackgroundColor,
       showSelectedLabels: false,
       showUnselectedLabels: false,
       currentIndex: _selectedIndex,
