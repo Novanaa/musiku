@@ -18,6 +18,7 @@ class HomeScreenHeader extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
             onPressed: openDrawer,
+            splashColor: ColorConstants.rippleColor,
             icon: SvgPicture.asset("assets/icons/menu.svg",
                 width: 25, height: 25))
       ],

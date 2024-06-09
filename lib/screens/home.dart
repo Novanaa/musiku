@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:musiku/constants/color.dart';
+import 'package:musiku/sections/home/cards.dart';
 import 'package:musiku/sections/home/drawer.dart';
 import 'package:musiku/sections/home/header.dart';
 import 'package:musiku/sections/home/music_list_header.dart';
@@ -19,7 +20,7 @@ class HomeScreen extends StatelessWidget {
             openDrawer: () => _key.currentState?.openEndDrawer()),
         endDrawer: const HomeScreenDrawer(),
         body: ListView(
-          children: const [MusicListHeader()],
+          children: const [HomeCards(), MusicListHeader()],
         ),
       ),
     );
