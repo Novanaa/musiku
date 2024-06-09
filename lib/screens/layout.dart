@@ -15,15 +15,15 @@ class Layout extends StatefulWidget {
 
 class _LayoutState extends State<Layout> {
   int _selectedIndex = 0;
-  final List<Widget> _screens = const [
+  final List<Widget> _screens = [
     // Home screen
     HomeScreen(),
     // Search screen
-    SearchScreen(),
+    const SearchScreen(),
     // collection screen
-    CollectionScreen(),
+    const CollectionScreen(),
     // Directory screen
-    DirectoryScreen()
+    const DirectoryScreen()
   ];
 
   void onTapped(int index) {
