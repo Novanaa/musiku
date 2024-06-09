@@ -30,7 +30,9 @@ class HomeScreenDrawer extends StatelessWidget {
           // Placeholder for right now!
           drawerMenuItem("Support Creator", "assets/icons/sparkles.svg", () {}),
           drawerMenuItem("Give Feedback", "assets/icons/heart.svg", () {}),
-          drawerMenuItem("Application version", "assets/icons/info.svg", () {}),
+          drawerMenuItem("Application version", "assets/icons/info.svg", () {
+            showApplicationVersion(context);
+          }),
         ],
       ),
     );
@@ -71,6 +73,28 @@ class HomeScreenDrawer extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+
+  void showApplicationVersion(BuildContext context) {
+    TextButton okButton = TextButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        child: const Text("OK"));
+
+    AlertDialog alert = AlertDialog(
+      backgroundColor: ColorConstants.modalBackgroundColor,
+      title: const Text("Application version"),
+      actions: [okButton],
+      content: const Text("1.0.0"),
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }
