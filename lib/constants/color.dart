@@ -9,4 +9,5 @@ class ColorConstants {
   static const Color modalBackgroundColor = Color(0xff191919);
   static const Color headerBackgroundColor = Color(0xff191919);
   static const Color destructiveColor = Color(0xfffc4949);
+  static const Color splashColor = Color.fromARGB(68, 254, 254, 254);
 }
