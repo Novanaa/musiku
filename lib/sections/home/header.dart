@@ -25,7 +25,7 @@ class HomeScreenHeader extends StatelessWidget implements PreferredSizeWidget {
           color: ColorConstants.textColor,
           fontFamily: "Poppins",
           fontWeight: FontWeight.w700,
-          fontSize: 16),
+          fontSize: 17),
       title: const Text("Musiku"),
     );
   }
