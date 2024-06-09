@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:musiku/constants/color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:musiku/sections/home/drawer.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -9,18 +10,13 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _key,
-      appBar: header(),
-      endDrawer: drawer(),
-    );
-  }
-
-  Drawer drawer() {
-    return Drawer(
-      backgroundColor: ColorConstants.modalBackgroundColor,
-      width: 250,
-      child: Container(),
+    return Theme(
+      data: Theme.of(context).copyWith(splashColor: ColorConstants.splashColor),
+      child: Scaffold(
+        key: _key,
+        appBar: header(),
+        endDrawer: const HomeScreenDrawer(),
+      ),
     );
   }
 
