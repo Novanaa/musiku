@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:musiku/constants/color.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreenDrawer extends StatelessWidget {
   const HomeScreenDrawer({
@@ -28,7 +29,9 @@ class HomeScreenDrawer extends StatelessWidget {
       child: Column(
         children: [
           // Placeholder for right now!
-          drawerMenuItem("Support Creator", "assets/icons/sparkles.svg", () {}),
+          drawerMenuItem("Support Creator", "assets/icons/sparkles.svg", () {
+            navigateSupportCreatorPage();
+          }),
           drawerMenuItem("Give Feedback", "assets/icons/heart.svg", () {}),
           drawerMenuItem("Application version", "assets/icons/info.svg", () {
             showApplicationVersion(context);
@@ -74,6 +77,23 @@ class HomeScreenDrawer extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> navigateGiveFeedbackPage() async {
+    // Placeholder url for now, change it later!
+    final Uri page = Uri.parse('https://www.buymeacoffee.com/kadeknova');
+
+    if (!await launchUrl(page)) {
+      throw Exception('Could not launch $page');
+    }
+  }
+
+  Future<void> navigateSupportCreatorPage() async {
+    final Uri page = Uri.parse('https://www.buymeacoffee.com/kadeknova');
+
+    if (!await launchUrl(page)) {
+      throw Exception('Could not launch $page');
+    }
   }
 
   void showApplicationVersion(BuildContext context) {
