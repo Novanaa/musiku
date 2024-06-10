@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:musiku/constants/color.dart';
+import 'package:musiku/sections/directory/info.dart';
 
 class DirectoryHeader extends StatelessWidget implements PreferredSizeWidget {
   const DirectoryHeader({super.key});
@@ -14,13 +15,28 @@ class DirectoryHeader extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       backgroundColor: ColorConstants.backgroundColor,
       title: directoryHeaderTitle(),
-      actions: [directoryActionSearchButton(), directoryActionInfoButton()],
+      actions: [
+        directoryActionSearchButton(),
+        directoryActionInfoButton(context)
+      ],
     );
   }
 
-  IconButton directoryActionInfoButton() {
+  IconButton directoryActionInfoButton(BuildContext context) {
     return IconButton(
-        onPressed: () {}, icon: SvgPicture.asset("assets/icons/info.svg"));
+        onPressed: () {
+          showDirectoryActionInfoBottomSheetModal(context);
+        },
+        icon: SvgPicture.asset("assets/icons/info.svg"));
+  }
+
+  Future<dynamic> showDirectoryActionInfoBottomSheetModal(
+      BuildContext context) {
+    return showModalBottomSheet(
+        context: context,
+        builder: (context) => const DirectoryInformation(),
+        isScrollControlled: true,
+        backgroundColor: ColorConstants.modalBackgroundColor);
   }
 
   IconButton directoryActionSearchButton() {
