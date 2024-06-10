@@ -8,7 +8,14 @@ class SearchScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
-        children: const [SearchScreenBar()],
+        children: [
+          SearchScreenBar(
+            // Implement later on!!
+            onTextChanged: (String text) {
+              print(text);
+            },
+          )
+        ],
       ),
     );
   }
