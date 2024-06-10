@@ -124,7 +124,7 @@ class DirectoryInformation extends StatelessWidget {
               ),
               Opacity(
                 opacity: 0.8,
-                child: Text("Discover your music directory statistics here!",
+                child: Text("Discover your music statistics here!",
                     style: TextStyle(fontSize: 11)),
               )
             ],
