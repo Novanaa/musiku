@@ -9,14 +9,14 @@
  <a aria-label="License" href="/">
     <img alt="LICENSE" src="https://img.shields.io/npm/l/next.svg?style=for-the-badge&labelColor=000000&color=fff">
   </a>
- <a aria-label="Typescript" href="/">
-    <img alt="Typescript" src="https://img.shields.io/badge/Typescript-white?style=for-the-badge&logo=typescript&logoColor=white&labelColor=black">
+ <a aria-label="Dart" href="https://dart.dev">
+    <img alt="Dart" src="https://img.shields.io/badge/Dart-white?style=for-the-badge&logo=Dart&logoColor=white&labelColor=black">
   </a>
- <a aria-label="Typescript" href="/">
-    <img alt="ExpoJS" src="https://img.shields.io/badge/ExpoJS-white?style=for-the-badge&logo=expo&logoColor=%23fff&labelColor=black">
+ <a aria-label="Flutter" href="https://flutter.dev/">
+    <img alt="Flutter" src="https://img.shields.io/badge/Flutter-white?style=for-the-badge&logo=flutter&logoColor=%23fff&labelColor=black">
   </a>
- <a aria-label="Bun" href="/">
-<img alt="Static Badge" src="https://img.shields.io/badge/Bun-white?style=for-the-badge&logo=Bun&logoColor=%23fff&labelColor=black">
+ <a aria-label="Support" href="https://www.buymeacoffee.com/kadeknova">
+<img alt="Static Badge" src="https://img.shields.io/badge/Buy Me A Coffe-white?style=for-the-badge&logo=buymeacoffee&logoColor=%23fff&labelColor=black">
   </a>
 </div>
 
@@ -27,7 +27,6 @@ Musiku is a simple and intuitive music player application designed to provide a 
 ## Installation
 
 Musiku is under development right now. it will be distributed on musiku official website (Coming soon)
-
 
 ## Authors
 
