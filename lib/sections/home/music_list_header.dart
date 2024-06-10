@@ -18,10 +18,27 @@ class MusicListHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           musicListHeaderText(),
-          musicListHeaderListOptions(),
+          Row(children: [
+            musicListHeaderRepeatModeOptions(),
+            const SizedBox(
+              width: 12,
+            ),
+            musicListHeaderListOptions(),
+          ])
         ],
       ),
     );
+  }
+
+  TouchFeedback musicListHeaderRepeatModeOptions() {
+    return TouchFeedback(
+        feedbackDuration: const Duration(milliseconds: 200),
+        rippleColor: ColorConstants.rippleColor,
+        // Placeholder for right now
+        onTap: () {},
+        child: SvgPicture.asset(
+          "assets/icons/repeat-mode-options.svg",
+        ));
   }
 
   TouchFeedback musicListHeaderListOptions() {
