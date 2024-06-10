@@ -45,7 +45,8 @@ class DirectoryHeader extends StatelessWidget implements PreferredSizeWidget {
   IconButton directoryActionSearchButton() {
     return IconButton(
         onPressed: () {
-          Get.to(const DirectorySearchScreen());
+          Get.to(const DirectorySearchScreen(),
+              transition: Transition.cupertino);
         },
         icon: SvgPicture.asset("assets/icons/search.svg"));
   }
