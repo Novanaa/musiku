@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:musiku/components/placeholder.dart';
 import 'package:musiku/constants/color.dart';
 import 'package:musiku/sections/directory/header.dart';
 
@@ -33,6 +34,9 @@ class _DirectorySearchScreenState extends State<DirectorySearchScreen> {
         foregroundColor: ColorConstants.iconColor,
         title: directorySearchBar(),
         titleSpacing: -0,
+      ),
+      body: ListView(
+        children: const [SearchWelcomeScreen()],
       ),
     );
   }

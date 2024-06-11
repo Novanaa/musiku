@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:musiku/components/placeholder.dart';
 import 'package:musiku/sections/search/search_bar.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -10,11 +11,10 @@ class SearchScreen extends StatelessWidget {
       body: ListView(
         children: [
           SearchScreenBar(
-            // Implement later on!!
-            onTextChanged: (String text) {
-              print(text);
-            },
-          )
+            // TODO: Implement later on!!
+            onTextChanged: (String text) {},
+          ),
+          const SearchWelcomeScreen()
         ],
       ),
     );
