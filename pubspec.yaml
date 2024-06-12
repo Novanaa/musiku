@@ -12,6 +12,7 @@
     flutter_native_splash: ^2.4.0
     flutter_svg: ^2.0.10+1
     get: ^4.6.6
+    on_audio_query: ^2.9.0
     permission_handler: ^11.3.1
     touch_ripple_effect: ^2.4.0
     url_launcher: ^6.3.0
