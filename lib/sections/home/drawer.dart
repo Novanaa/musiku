@@ -28,11 +28,12 @@ class HomeScreenDrawer extends StatelessWidget {
       padding: const EdgeInsets.only(top: 8.0),
       child: Column(
         children: [
-          // Placeholder for right now!
           drawerMenuItem("Support Creator", "assets/icons/sparkles.svg", () {
             navigateSupportCreatorPage();
           }),
-          drawerMenuItem("Give Feedback", "assets/icons/heart.svg", () {}),
+          drawerMenuItem("Give Feedback", "assets/icons/heart.svg", () {
+            navigateGiveFeedbackPage();
+          }),
           drawerMenuItem("Application version", "assets/icons/info.svg", () {
             showApplicationVersion(context);
           }),
