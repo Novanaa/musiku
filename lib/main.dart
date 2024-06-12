@@ -5,11 +5,11 @@ import 'package:musiku/screens/layout.dart';
 import 'package:flutter/services.dart';
 import 'package:musiku/utils/permission.dart';
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((value) => runApp(const MainApp()));
-  await checkPermission();
+  checkPermission();
 }
 
 class MainApp extends StatelessWidget {
