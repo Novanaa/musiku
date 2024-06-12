@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:musiku/components/music.dart';
 import 'package:musiku/controller.dart';
 
 class MusicList extends StatelessWidget {
@@ -9,6 +10,14 @@ class MusicList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Flexible(
+      child: ListView.builder(
+        padding: const EdgeInsets.only(top: 10, bottom: 10),
+        itemCount: musicController.music.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Music(song: musicController.music[index]);
+        },
+      ),
+    );
   }
 }

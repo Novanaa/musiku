@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
         appBar: HomeScreenHeader(
             openDrawer: () => _key.currentState?.openEndDrawer()),
         endDrawer: const HomeScreenDrawer(),
-        body: ListView(
+        body: Column(
           children: [const HomeCards(), const MusicListHeader(), MusicList()],
         ),
       ),
