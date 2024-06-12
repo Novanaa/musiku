@@ -4,6 +4,7 @@ import 'package:musiku/sections/home/cards.dart';
 import 'package:musiku/sections/home/drawer.dart';
 import 'package:musiku/sections/home/header.dart';
 import 'package:musiku/sections/home/music_list_header.dart';
+import 'package:musiku/sections/home/music_list.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -20,7 +21,7 @@ class HomeScreen extends StatelessWidget {
             openDrawer: () => _key.currentState?.openEndDrawer()),
         endDrawer: const HomeScreenDrawer(),
         body: ListView(
-          children: const [HomeCards(), MusicListHeader()],
+          children: [const HomeCards(), const MusicListHeader(), MusicList()],
         ),
       ),
     );
