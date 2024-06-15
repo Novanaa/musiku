@@ -11,12 +11,14 @@ class MusicList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Flexible(
-      child: ListView.builder(
-        padding: const EdgeInsets.only(top: 10, bottom: 10),
-        itemCount: musicController.music.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Music(song: musicController.music[index]);
-        },
+      child: Obx(
+        () => ListView.builder(
+          padding: const EdgeInsets.only(top: 10, bottom: 10),
+          itemCount: musicController.music.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Music(song: musicController.music[index]);
+          },
+        ),
       ),
     );
   }

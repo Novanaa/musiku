@@ -3,12 +3,15 @@ import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:musiku/screens/layout.dart';
 import 'package:musiku/screens/welcome.dart';
+import 'package:musiku/utils/app_init.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-Future<void> checkPermission() async {
+Future<bool> checkPermission() async {
   bool isGranted = await Permission.storage.isGranted;
 
   if (!isGranted) Get.to(const WelcomeScreen());
+
+  return isGranted;
 }
 
 Future<void> getPermission() async {
@@ -18,6 +21,7 @@ Future<void> getPermission() async {
     PermissionStatus permissionStatus = await Permission.storage.request();
 
     if (permissionStatus.isGranted) {
+      await applicationInit();
       Get.offAll(const Layout(), transition: Transition.cupertino);
     }
 
