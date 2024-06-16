@@ -11,7 +11,8 @@ class DirectoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       child: Container(
-        padding: const EdgeInsets.all(8),
+        padding:
+            const EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
         child: Row(
           children: [
             SvgPicture.asset(
@@ -22,22 +23,27 @@ class DirectoryItem extends StatelessWidget {
             const SizedBox(
               width: 10,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  item.name,
-                  style: const TextStyle(fontWeight: FontWeight.w500),
-                  maxLines: 1,
-                ),
-                Opacity(
-                    opacity: 0.8,
-                    child: Text(
-                      item.path,
-                      style: const TextStyle(fontSize: 12),
-                      maxLines: 1,
-                    ))
-              ],
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.75,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    item.name,
+                    style: const TextStyle(fontWeight: FontWeight.w500),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                  Opacity(
+                      opacity: 0.8,
+                      child: Text(
+                        item.path,
+                        style: const TextStyle(fontSize: 11.5),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ))
+                ],
+              ),
             )
           ],
         ),
