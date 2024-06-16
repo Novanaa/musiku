@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:musiku/components/placeholder.dart';
 import 'package:musiku/constants/color.dart';
+import 'package:musiku/controller.dart';
+import 'package:musiku/model.dart';
 import 'package:musiku/sections/directory/builder.dart';
 import 'package:musiku/sections/directory/header.dart';
+import 'package:on_audio_query/on_audio_query.dart';
+import 'package:musiku/components/music.dart';
 
 class DirectoriesScreen extends StatelessWidget {
   const DirectoriesScreen({super.key});
@@ -82,11 +87,49 @@ class _DirectorySearchScreenState extends State<DirectorySearchScreen> {
   }
 }
 
+// ignore: must_be_immutable
 class DirectoryScreen extends StatelessWidget {
-  const DirectoryScreen({super.key});
+  DirectoryScreen({super.key});
+
+  Directory directory = Get.arguments["directory"];
+
+  final MusicController musicController = Get.put(MusicController());
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: directoryScreenAppBar(),
+      body: Column(
+        children: [directoryScreenMusicList()],
+      ),
+    );
+  }
+
+  Flexible directoryScreenMusicList() {
+    List<SongModel> music = musicController.music
+        .where((item) => item.data.contains(directory.path))
+        .toList();
+
+    return Flexible(
+        child: ListView.builder(
+      padding: const EdgeInsets.only(top: 5, bottom: 10),
+      itemCount: music.length,
+      itemBuilder: (BuildContext context, int index) =>
+          Music(song: music[index]),
+    ));
+  }
+
+  AppBar directoryScreenAppBar() {
+    return AppBar(
+      backgroundColor: ColorConstants.headerBackgroundColor,
+      foregroundColor: ColorConstants.textColor,
+      titleSpacing: 5,
+      title: Text(
+        directory.name,
+        style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 19),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      ),
+    );
   }
 }
