@@ -7,6 +7,7 @@ import 'package:musiku/controller.dart';
 import 'package:musiku/model.dart';
 import 'package:musiku/sections/directory/builder.dart';
 import 'package:musiku/sections/directory/header.dart';
+import 'package:musiku/sections/directory/item.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:musiku/components/music.dart';
 
@@ -35,23 +36,55 @@ class DirectorySearchScreen extends StatefulWidget {
 }
 
 class _DirectorySearchScreenState extends State<DirectorySearchScreen> {
+  String keyword = "";
+
+  final DirectoryController directoryController =
+      Get.put(DirectoryController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        foregroundColor: ColorConstants.iconColor,
-        title: directorySearchBar(),
-        titleSpacing: -0,
-      ),
-      body: ListView(
-        children: const [SearchWelcomeScreen()],
+      appBar: directorySearchScreenAppBar(),
+      body: Column(
+        children: [searchDirectories()],
       ),
     );
   }
 
-  // TODO: Implement directory search feature
-  void onTextfieldChanged(String text) {}
+  dynamic searchDirectories() {
+    List<Directory> directoryList = [];
+
+    if (keyword.isNotEmpty) {
+      directoryList.addAll(directoryController.directory.where(
+          (value) => value.path.toLowerCase().contains(keyword.toLowerCase())));
+    }
+
+    if (keyword.isEmpty) return const SearchWelcomeScreen();
+
+    if (directoryList.isEmpty) return const SearchNotFoundPlaceholder();
+
+    return Flexible(
+      child: ListView.builder(
+        padding: const EdgeInsets.only(top: 5, bottom: 5),
+        itemCount: directoryList.length,
+        itemBuilder: (BuildContext context, int index) =>
+            DirectoryItem(item: directoryList[index]),
+      ),
+    );
+  }
+
+  void onTextfieldChanged(String text) {
+    setState(() => keyword = text);
+  }
+
+  AppBar directorySearchScreenAppBar() {
+    return AppBar(
+      backgroundColor: Colors.transparent,
+      foregroundColor: ColorConstants.iconColor,
+      title: directorySearchBar(),
+      titleSpacing: -0,
+    );
+  }
 
   Container directorySearchBar() {
     return Container(
