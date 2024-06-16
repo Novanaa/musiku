@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:musiku/constants/color.dart';
-import 'package:touch_ripple_effect/touch_ripple_effect.dart';
 
 class MusicListHeader extends StatelessWidget {
   const MusicListHeader({super.key});
@@ -30,10 +29,9 @@ class MusicListHeader extends StatelessWidget {
     );
   }
 
-  TouchFeedback musicListHeaderRepeatModeOptions() {
-    return TouchFeedback(
-        feedbackDuration: const Duration(milliseconds: 200),
-        rippleColor: ColorConstants.rippleColor,
+  InkWell musicListHeaderRepeatModeOptions() {
+    return InkWell(
+        splashColor: ColorConstants.splashColor,
         // Placeholder for right now
         onTap: () {},
         child: SvgPicture.asset(
@@ -41,10 +39,9 @@ class MusicListHeader extends StatelessWidget {
         ));
   }
 
-  TouchFeedback musicListHeaderListOptions() {
-    return TouchFeedback(
-        feedbackDuration: const Duration(milliseconds: 200),
-        rippleColor: ColorConstants.rippleColor,
+  InkWell musicListHeaderListOptions() {
+    return InkWell(
+        splashColor: ColorConstants.splashColor,
         // Placeholder for right now
         onTap: () {},
         child: SvgPicture.asset(
