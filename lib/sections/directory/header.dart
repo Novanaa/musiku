@@ -36,7 +36,7 @@ class DirectoryHeader extends StatelessWidget implements PreferredSizeWidget {
       BuildContext context) {
     return showModalBottomSheet(
         context: context,
-        builder: (context) => const DirectoryInformation(),
+        builder: (context) => DirectoryInformation(),
         isScrollControlled: true,
         backgroundColor: ColorConstants.modalBackgroundColor);
   }

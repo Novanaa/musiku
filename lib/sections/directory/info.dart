@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:musiku/constants/color.dart';
+import 'package:musiku/controller.dart';
 
 class DirectoryInformation extends StatelessWidget {
-  const DirectoryInformation({
+  DirectoryInformation({
     super.key,
   });
+
+  final MusicController musicController = Get.put(MusicController());
+
+  final DirectoryController directoryController =
+      Get.put(DirectoryController());
 
   @override
   Widget build(BuildContext context) {
@@ -48,12 +55,14 @@ class DirectoryInformation extends StatelessWidget {
                 const Text("Music",
                     style:
                         TextStyle(fontWeight: FontWeight.w500, fontSize: 16)),
-                const Opacity(
-                  opacity: 0.8,
-                  child: Text(
-                    // Placeholder for right now, change it with real data later on!
-                    "0 items found",
-                    style: TextStyle(fontSize: 12.5),
+                Obx(
+                  () => Opacity(
+                    opacity: 0.8,
+                    child: Text(
+                      // Placeholder for right now, change it with real data later on!
+                      '${musicController.totalItems} items found',
+                      style: const TextStyle(fontSize: 12.5),
+                    ),
                   ),
                 )
               ],
@@ -82,12 +91,13 @@ class DirectoryInformation extends StatelessWidget {
                 const Text("Directory",
                     style:
                         TextStyle(fontWeight: FontWeight.w500, fontSize: 16)),
-                const Opacity(
-                  opacity: 0.8,
-                  child: Text(
-                    // Placeholder for right now, change it with real data later on!
-                    "0 items found",
-                    style: TextStyle(fontSize: 12.5),
+                Obx(
+                  () => Opacity(
+                    opacity: 0.8,
+                    child: Text(
+                      "${directoryController.totalItems} items found",
+                      style: const TextStyle(fontSize: 12.5),
+                    ),
                   ),
                 )
               ],

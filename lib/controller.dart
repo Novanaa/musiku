@@ -4,11 +4,15 @@ import 'package:musiku/model.dart';
 
 class MusicController extends GetxController {
   final OnAudioQuery _audioQuery = OnAudioQuery();
+
   final RxList<SongModel> music = <SongModel>[].obs;
+
+  RxInt totalItems = 0.obs;
 
   Future<List<SongModel>> getMusic() async {
     List<SongModel> songs = await _audioQuery.querySongs();
     music.addAll(songs);
+    totalItems = songs.length.obs;
     update();
 
     return songs;
@@ -17,7 +21,10 @@ class MusicController extends GetxController {
 
 class DirectoryController extends GetxController {
   final RxList<Directory> directory = <Directory>[].obs;
+
   final MusicController _musicController = Get.find<MusicController>();
+
+  RxInt totalItems = 0.obs;
 
   void getDirectory() async {
     List<SongModel> music = await _musicController.getMusic();
@@ -32,6 +39,7 @@ class DirectoryController extends GetxController {
         .toSet()
         .toList();
 
+    totalItems = mappedDirectories.length.obs;
     directory.assignAll(mappedDirectories);
     update();
   }
