@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:musiku/model.dart';
+import 'package:musiku/screens/directory.dart';
 
 class DirectoryItem extends StatelessWidget {
   final Directory item;
@@ -10,6 +12,10 @@ class DirectoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: () {
+        Get.to(() => DirectoryScreen(),
+            transition: Transition.cupertino, arguments: {'directory': item});
+      },
       child: Container(
         padding:
             const EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
@@ -30,7 +36,8 @@ class DirectoryItem extends StatelessWidget {
                 children: [
                   Text(
                     item.name,
-                    style: const TextStyle(fontWeight: FontWeight.w500),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w500, fontSize: 14.5),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
