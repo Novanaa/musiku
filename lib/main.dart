@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get.dart';
 import 'package:musiku/constants/color.dart';
+import 'package:musiku/controller.dart';
 import 'package:musiku/screens/layout.dart';
 import 'package:flutter/services.dart';
 import 'package:musiku/utils/app_init.dart';
 
 void main() {
+  Get.put(MusicController());
+  Get.put(DirectoryController());
+
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((value) => runApp(const MainApp()));
