@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:musiku/components/placeholder.dart';
 import 'package:musiku/constants/color.dart';
+import 'package:musiku/sections/directory/builder.dart';
 import 'package:musiku/sections/directory/header.dart';
 
 class DirectoryScreen extends StatelessWidget {
@@ -11,8 +12,11 @@ class DirectoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Theme(
       data: Theme.of(context).copyWith(splashColor: ColorConstants.splashColor),
-      child: const Scaffold(
-        appBar: DirectoryHeader(),
+      child: Scaffold(
+        appBar: const DirectoryHeader(),
+        body: Column(
+          children: [DirectoryListBuilder()],
+        ),
       ),
     );
   }
