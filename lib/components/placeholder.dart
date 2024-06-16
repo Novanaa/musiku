@@ -73,3 +73,41 @@ class EmptyMusicPlaceholder extends StatelessWidget {
     );
   }
 }
+
+class SearchNotFoundPlaceholder extends StatelessWidget {
+  const SearchNotFoundPlaceholder({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.70,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SvgPicture.asset(
+            "assets/images/cat-box.svg",
+            width: 120,
+            height: 120,
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          const Text("Not results found",
+              style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600)),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.65,
+            child: const Opacity(
+              opacity: 0.8,
+              child: Text(
+                "Requested items cannot be found, try searching something else.",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 13),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
