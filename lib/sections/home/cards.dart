@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:musiku/constants/color.dart';
 import 'package:musiku/constants/metadata.dart';
 import 'package:musiku/utils/open_url.dart';
-import 'package:touch_ripple_effect/touch_ripple_effect.dart';
 
 class HomeCards extends StatelessWidget {
   const HomeCards({super.key});
@@ -50,10 +49,10 @@ class HomeCards extends StatelessWidget {
     );
   }
 
-  TouchFeedback musicHeaderListItem(
+  InkWell musicHeaderListItem(
       String title, String description, String assetName, VoidCallback onTap) {
-    return TouchFeedback(
-      rippleColor: const Color.fromARGB(84, 254, 254, 254),
+    return InkWell(
+      borderRadius: BorderRadius.circular(8),
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
