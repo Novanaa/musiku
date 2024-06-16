@@ -26,8 +26,45 @@ class SearchWelcomeScreen extends StatelessWidget {
               opacity: 0.8,
               child: Text(
                 "Type something in top search bar and see the magic!",
-                style: TextStyle(),
                 textAlign: TextAlign.center,
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class EmptyMusicPlaceholder extends StatelessWidget {
+  const EmptyMusicPlaceholder({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.70,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SvgPicture.asset(
+            "assets/images/empty-music-placeholder.svg",
+            width: 120,
+            height: 120,
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          const Text("Got any tunes on your phone?",
+              style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600)),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.65,
+            child: const Opacity(
+              opacity: 0.8,
+              child: Text(
+                "How about we add some tunes to your phone? It's feeling a bit too quiet in here!",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 13),
               ),
             ),
           )
