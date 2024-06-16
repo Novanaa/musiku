@@ -5,8 +5,8 @@ import 'package:musiku/constants/color.dart';
 import 'package:musiku/sections/directory/builder.dart';
 import 'package:musiku/sections/directory/header.dart';
 
-class DirectoryScreen extends StatelessWidget {
-  const DirectoryScreen({super.key});
+class DirectoriesScreen extends StatelessWidget {
+  const DirectoriesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -79,5 +79,14 @@ class _DirectorySearchScreenState extends State<DirectorySearchScreen> {
         ),
       ),
     );
+  }
+}
+
+class DirectoryScreen extends StatelessWidget {
+  const DirectoryScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }

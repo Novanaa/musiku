@@ -23,7 +23,7 @@ class _LayoutState extends State<Layout> {
     // collection screen
     const CollectionScreen(),
     // Directory screen
-    const DirectoryScreen()
+    const DirectoriesScreen()
   ];
 
   void onTapped(int index) {
