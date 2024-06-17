@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:musiku/components/floating_music.dart';
 import 'package:musiku/constants/color.dart';
 import 'package:musiku/screens/home.dart';
 import 'package:musiku/screens/search.dart';
@@ -27,15 +28,15 @@ class _LayoutState extends State<Layout> {
   ];
 
   void onTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    setState(() => _selectedIndex = index);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[_selectedIndex],
+      body: Stack(
+        children: [_screens[_selectedIndex], FloatingMusic()],
+      ),
       backgroundColor: ColorConstants.backgroundColor,
       bottomNavigationBar: bottomNavbar(),
     );
