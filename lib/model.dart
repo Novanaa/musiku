@@ -28,4 +28,21 @@ class CurrentMusicPlayedModel {
   SongModel music;
 
   CurrentMusicPlayedModel({required this.music, required this.position});
+
+  Map<String, dynamic> toJson() => {
+        'position': position,
+        'music': music.getMap,
+      };
+
+  factory CurrentMusicPlayedModel.fromJson(Map<String, dynamic> json) {
+    return CurrentMusicPlayedModel(
+      position: json['position'],
+      music: SongModel(json['music']),
+    );
+  }
+
+  @override
+  String toString() {
+    return 'CurrentMusicPlayedModel(position: $position, music: $music)';
+  }
 }
