@@ -1,3 +1,5 @@
+import 'package:on_audio_query/on_audio_query.dart';
+
 class Directory {
   String name;
   String path;
@@ -18,5 +20,29 @@ class Directory {
   @override
   String toString() {
     return 'Directory{name: $name, path: $path}';
+  }
+}
+
+class CurrentMusicPlayedModel {
+  int position;
+  SongModel music;
+
+  CurrentMusicPlayedModel({required this.music, required this.position});
+
+  Map<String, dynamic> toJson() => {
+        'position': position,
+        'music': music.getMap,
+      };
+
+  factory CurrentMusicPlayedModel.fromJson(Map<String, dynamic> json) {
+    return CurrentMusicPlayedModel(
+      position: json['position'],
+      music: SongModel(json['music']),
+    );
+  }
+
+  @override
+  String toString() {
+    return 'CurrentMusicPlayedModel(position: $position, music: $music)';
   }
 }

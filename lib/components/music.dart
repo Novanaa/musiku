@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:musiku/utils/player.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class Music extends StatelessWidget {
@@ -21,8 +22,9 @@ class Music extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      // TODO: Implement play music feature
-      onTap: () {},
+      onTap: () async {
+        await playMusic(song);
+      },
       child: Container(
         margin: const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
         child:
