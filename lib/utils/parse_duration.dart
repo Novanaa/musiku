@@ -5,5 +5,5 @@ String parseDuration(int duration) {
       : convertedDuration.inMinutes.toString();
   int durationInSeconds = duration % 60.ceil();
 
-  return "$durationInMinutes:${durationInSeconds.ceil()}";
+  return "$durationInMinutes:${durationInSeconds < 10 ? "0$durationInSeconds" : durationInSeconds}";
 }
