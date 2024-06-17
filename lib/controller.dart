@@ -22,13 +22,12 @@ class MusicController extends GetxController {
 class DirectoryController extends GetxController {
   final RxList<Directory> directory = <Directory>[].obs;
 
-  final MusicController _musicController = Get.find<MusicController>();
+  final OnAudioQuery _audioQuery = OnAudioQuery();
 
   RxInt totalItems = 0.obs;
 
   void getDirectory() async {
-    List<SongModel> music = await _musicController.getMusic();
-
+    List<SongModel> music = await _audioQuery.querySongs();
     List<Directory> mappedDirectories = music
         .map((value) {
           List<String> splitedPath = value.data.split("/");
