@@ -1,3 +1,5 @@
+import 'package:on_audio_query/on_audio_query.dart';
+
 class Directory {
   String name;
   String path;
@@ -19,4 +21,11 @@ class Directory {
   String toString() {
     return 'Directory{name: $name, path: $path}';
   }
+}
+
+class CurrentMusicPlayedModel {
+  int position;
+  SongModel music;
+
+  CurrentMusicPlayedModel({required this.music, required this.position});
 }
