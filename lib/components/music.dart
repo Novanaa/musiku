@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class Music extends StatelessWidget {
   final SongModel song;
   const Music({super.key, required this.song});
+
+  String getMusicMetadata() {
+    String? albums = song.album?.capitalize == "<unknown>"
+        ? "Unknown albums"
+        : song.album?.capitalize;
+    String? artist = song.artist?.capitalize == "<unknown>"
+        ? "Unkown artist"
+        : song.artist?.capitalize;
+
+    return "$albums - $artist";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +40,13 @@ class Music extends StatelessWidget {
                 const SizedBox(
                   height: 5,
                 ),
-                const Opacity(
+                Opacity(
                     opacity: 0.8,
                     child: Text(
-                      "Unknown albums - Unkown artis",
-                      style: TextStyle(fontSize: 11.5),
+                      getMusicMetadata(),
+                      style: const TextStyle(fontSize: 11.5),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ))
               ],
             ),
