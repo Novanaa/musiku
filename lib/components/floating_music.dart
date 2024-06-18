@@ -1,6 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:musiku/constants/color.dart';
+import 'package:musiku/controller.dart';
+import 'package:musiku/utils/common.dart';
 
 class FloatingMusic extends StatelessWidget {
   const FloatingMusic({super.key});
@@ -64,6 +67,9 @@ class FloatingMusic extends StatelessWidget {
   }
 
   Row floatingMusicMetadata(BuildContext context) {
+    final CurrentMusicPlayedController currentMusicPlayedController =
+        Get.put(CurrentMusicPlayedController());
+
     return Row(
       children: [
         Transform.scale(
@@ -75,30 +81,33 @@ class FloatingMusic extends StatelessWidget {
         const SizedBox(width: 10),
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.45,
-          child: const Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                // TODO: Update data to current music played
-                // This is a placeholder for right now! change it later on.
-                "What do you like to play?",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14.5),
-              ),
-              Opacity(
-                opacity: 0.8,
-                child: Text(
-                  // TODO: Update data to current music played
-                  // This is a placeholder for right now! change it later on.
-                  "No music audio history provided!",
+          child: Obx(
+            () => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  currentMusicPlayedController
+                          .currentMusicPlayed.value?.music.displayName ??
+                      "What do you like to play?",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontSize: 11.5),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w500, fontSize: 14.5),
                 ),
-              )
-            ],
+                Opacity(
+                  opacity: 0.8,
+                  child: Text(
+                    getMusicMetadata(currentMusicPlayedController
+                            .currentMusicPlayed.value?.music) ??
+                        "No music audio history provided!",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontSize: 11.5),
+                  ),
+                )
+              ],
+            ),
           ),
         )
       ],
