@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:musiku/repository/current_played.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:musiku/model.dart';
 
@@ -40,6 +41,27 @@ class DirectoryController extends GetxController {
 
     totalItems = mappedDirectories.length.obs;
     directory.assignAll(mappedDirectories);
+    update();
+  }
+}
+
+class CurrentMusicPlayedController extends GetxController {
+  Rx<CurrentMusicPlayedModel?> currentMusicPlayed =
+      Rx<CurrentMusicPlayedModel?>(null);
+
+  @override
+  void onInit() {
+    super.onInit();
+    refetchCurrentMusicPlayedState();
+  }
+
+  void setCurrentMusicPlayed(CurrentMusicPlayedModel data) async {
+    await CurrentMusicPlayedRepository.save(data);
+    refetchCurrentMusicPlayedState();
+  }
+
+  void refetchCurrentMusicPlayedState() async {
+    currentMusicPlayed.value = await CurrentMusicPlayedRepository.retrieve();
     update();
   }
 }
