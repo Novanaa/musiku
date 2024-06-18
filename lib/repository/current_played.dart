@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:musiku/model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CurrentMusicPlayed {
+class CurrentMusicPlayedRepository {
   static const String key = "current_music_played";
 
   static Future<CurrentMusicPlayedModel?> retrieve() async {

@@ -1,9 +1,28 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:musiku/constants/color.dart';
+import 'package:musiku/controller.dart';
+import 'package:musiku/services/music_player.dart';
+import 'package:musiku/utils/common.dart';
+import 'package:musiku/utils/player.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 
-class FloatingMusic extends StatelessWidget {
+class FloatingMusic extends StatefulWidget {
   const FloatingMusic({super.key});
+
+  @override
+  State<FloatingMusic> createState() => _FloatingMusicState();
+}
+
+class _FloatingMusicState extends State<FloatingMusic> {
+  bool isPlaying = false;
+  final CurrentMusicPlayedController currentMusicPlayedController =
+      Get.put(CurrentMusicPlayedController());
+
+  bool isMusicControllerDisable() {
+    return currentMusicPlayedController.currentMusicPlayed.value == null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,29 +57,49 @@ class FloatingMusic extends StatelessWidget {
     );
   }
 
-  Row floatingMusicController() {
-    return Row(
-      children: [
-        GestureDetector(
-          // TODO: Implement play previous music feature
-          onTap: () {},
-          child: SvgPicture.asset("assets/icons/prev-music.svg"),
-        ),
-        const SizedBox(width: 10),
-        GestureDetector(
-          // TODO: Implement play and pause music feature
-          onTap: () {},
-          // TODO: Validate icon if the music is playing or not
-          child: SvgPicture.asset("assets/icons/play.svg"),
-        ),
-        const SizedBox(width: 10),
-        GestureDetector(
-          // TODO: Implement play next music feature
-          onTap: () {},
-          child: SvgPicture.asset("assets/icons/next-music.svg"),
-        ),
-      ],
+  Opacity floatingMusicController() {
+    return Opacity(
+      opacity: isMusicControllerDisable() ? 0.8 : 1,
+      child: Row(
+        children: [
+          GestureDetector(
+            // TODO: Implement play previous music feature
+            onTap: isMusicControllerDisable() ? null : () {},
+            child: SvgPicture.asset("assets/icons/prev-music.svg"),
+          ),
+          const SizedBox(width: 10),
+          playAndPauseButton(),
+          const SizedBox(width: 10),
+          GestureDetector(
+            // TODO: Implement play next music feature
+            onTap: isMusicControllerDisable() ? null : () {},
+            child: SvgPicture.asset("assets/icons/next-music.svg"),
+          ),
+        ],
+      ),
     );
+  }
+
+  GestureDetector playAndPauseButton() {
+    MusicPlayer.getInstance().playerStateStream.listen((state) {
+      if (state.playing != isPlaying) setState(() => isPlaying = state.playing);
+    });
+
+    return isPlaying
+        ? GestureDetector(
+            // TODO: Implement play and pause music feature
+            onTap: isMusicControllerDisable() ? null : () {},
+            child: SvgPicture.asset("assets/icons/pause.svg"),
+          )
+        : GestureDetector(
+            onTap: isMusicControllerDisable()
+                ? null
+                : () {
+                    playMusic(currentMusicPlayedController
+                        .currentMusicPlayed.value?.music as SongModel);
+                  },
+            child: SvgPicture.asset("assets/icons/play.svg"),
+          );
   }
 
   Row floatingMusicMetadata(BuildContext context) {
@@ -75,30 +114,33 @@ class FloatingMusic extends StatelessWidget {
         const SizedBox(width: 10),
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.45,
-          child: const Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                // TODO: Update data to current music played
-                // This is a placeholder for right now! change it later on.
-                "What do you like to play?",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14.5),
-              ),
-              Opacity(
-                opacity: 0.8,
-                child: Text(
-                  // TODO: Update data to current music played
-                  // This is a placeholder for right now! change it later on.
-                  "No music audio history provided!",
+          child: Obx(
+            () => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  currentMusicPlayedController
+                          .currentMusicPlayed.value?.music.displayName ??
+                      "What do you like to play?",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontSize: 11.5),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w500, fontSize: 14.5),
                 ),
-              )
-            ],
+                Opacity(
+                  opacity: 0.8,
+                  child: Text(
+                    getMusicMetadata(currentMusicPlayedController
+                            .currentMusicPlayed.value?.music) ??
+                        "No music audio history provided!",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontSize: 11.5),
+                  ),
+                )
+              ],
+            ),
           ),
         )
       ],
