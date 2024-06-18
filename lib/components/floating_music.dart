@@ -6,7 +6,6 @@ import 'package:musiku/controller.dart';
 import 'package:musiku/services/music_player.dart';
 import 'package:musiku/utils/common.dart';
 import 'package:musiku/utils/player.dart';
-import 'package:on_audio_query/on_audio_query.dart';
 
 class FloatingMusic extends StatefulWidget {
   const FloatingMusic({super.key});
@@ -22,6 +21,12 @@ class _FloatingMusicState extends State<FloatingMusic> {
 
   bool isMusicControllerDisable() {
     return currentMusicPlayedController.currentMusicPlayed.value == null;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    MusicPlayer.getInstance().dispose();
   }
 
   @override
@@ -87,16 +92,18 @@ class _FloatingMusicState extends State<FloatingMusic> {
 
     return isPlaying
         ? GestureDetector(
-            // TODO: Implement play and pause music feature
-            onTap: isMusicControllerDisable() ? null : () {},
+            onTap: isMusicControllerDisable()
+                ? null
+                : () {
+                    pauseMusic();
+                  },
             child: SvgPicture.asset("assets/icons/pause.svg"),
           )
         : GestureDetector(
             onTap: isMusicControllerDisable()
                 ? null
                 : () {
-                    playMusic(currentMusicPlayedController
-                        .currentMusicPlayed.value?.music as SongModel);
+                    replayMusic();
                   },
             child: SvgPicture.asset("assets/icons/play.svg"),
           );
