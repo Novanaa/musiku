@@ -67,11 +67,10 @@ class FloatingMusic extends StatelessWidget {
             playAndPauseButton(),
             const SizedBox(width: 10),
             GestureDetector(
-              // TODO: Implement play next music feature
               onTap:
                   currentMusicPlayedController.currentMusicPlayed.value == null
                       ? null
-                      : () {},
+                      : playNextMusic,
               child: SvgPicture.asset("assets/icons/next-music.svg"),
             ),
           ],
