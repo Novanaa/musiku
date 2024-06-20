@@ -35,7 +35,7 @@ class _LayoutState extends State<Layout> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        children: [_screens[_selectedIndex], const FloatingMusic()],
+        children: [_screens[_selectedIndex], FloatingMusic()],
       ),
       backgroundColor: ColorConstants.backgroundColor,
       bottomNavigationBar: bottomNavbar(),
