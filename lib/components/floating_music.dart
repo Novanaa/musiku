@@ -1,33 +1,17 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:musiku/constants/color.dart';
 import 'package:musiku/controller.dart';
 import 'package:musiku/services/music_player.dart';
 import 'package:musiku/utils/common.dart';
-import 'package:musiku/utils/player.dart';
 
-class FloatingMusic extends StatefulWidget {
-  const FloatingMusic({super.key});
+class FloatingMusic extends StatelessWidget {
+  FloatingMusic({super.key});
 
-  @override
-  State<FloatingMusic> createState() => _FloatingMusicState();
-}
-
-class _FloatingMusicState extends State<FloatingMusic> {
-  bool isPlaying = false;
   final CurrentMusicPlayedController currentMusicPlayedController =
       Get.put(CurrentMusicPlayedController());
-
-  bool isMusicControllerDisable() {
-    return currentMusicPlayedController.currentMusicPlayed.value == null;
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    MusicPlayer.getInstance().dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,51 +46,67 @@ class _FloatingMusicState extends State<FloatingMusic> {
     );
   }
 
-  Opacity floatingMusicController() {
-    return Opacity(
-      opacity: isMusicControllerDisable() ? 0.8 : 1,
-      child: Row(
-        children: [
-          GestureDetector(
-            // TODO: Implement play previous music feature
-            onTap: isMusicControllerDisable() ? null : () {},
-            child: SvgPicture.asset("assets/icons/prev-music.svg"),
-          ),
-          const SizedBox(width: 10),
-          playAndPauseButton(),
-          const SizedBox(width: 10),
-          GestureDetector(
-            // TODO: Implement play next music feature
-            onTap: isMusicControllerDisable() ? null : () {},
-            child: SvgPicture.asset("assets/icons/next-music.svg"),
-          ),
-        ],
+  Obx floatingMusicController() {
+    return Obx(
+      () => Opacity(
+        opacity: currentMusicPlayedController.currentMusicPlayed.value == null
+            ? 0.8
+            : 1,
+        child: Row(
+          children: [
+            GestureDetector(
+              // TODO: Implement play previous music feature
+              onTap:
+                  currentMusicPlayedController.currentMusicPlayed.value == null
+                      ? null
+                      : () {},
+              child: SvgPicture.asset("assets/icons/prev-music.svg"),
+            ),
+            const SizedBox(width: 10),
+            playAndPauseButton(),
+            const SizedBox(width: 10),
+            GestureDetector(
+              // TODO: Implement play next music feature
+              onTap:
+                  currentMusicPlayedController.currentMusicPlayed.value == null
+                      ? null
+                      : () {},
+              child: SvgPicture.asset("assets/icons/next-music.svg"),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  GestureDetector playAndPauseButton() {
-    MusicPlayer.getInstance().playerStateStream.listen((state) {
-      if (state.playing != isPlaying) setState(() => isPlaying = state.playing);
-    });
-
-    return isPlaying
-        ? GestureDetector(
-            onTap: isMusicControllerDisable()
-                ? null
-                : () {
-                    pauseMusic();
-                  },
-            child: SvgPicture.asset("assets/icons/pause.svg"),
-          )
-        : GestureDetector(
-            onTap: isMusicControllerDisable()
-                ? null
-                : () {
-                    replayMusic();
-                  },
+  StreamBuilder playAndPauseButton() {
+    return StreamBuilder<PlayerState>(
+      stream: MusicPlayer.getInstance().playerStateStream,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return GestureDetector(
+            onTap: null,
             child: SvgPicture.asset("assets/icons/play.svg"),
           );
+        }
+
+        return snapshot.data?.playing ?? false
+            ? GestureDetector(
+                onTap: currentMusicPlayedController.currentMusicPlayed.value ==
+                        null
+                    ? null
+                    : () {},
+                child: SvgPicture.asset("assets/icons/pause.svg"),
+              )
+            : GestureDetector(
+                onTap: currentMusicPlayedController.currentMusicPlayed.value ==
+                        null
+                    ? null
+                    : () {},
+                child: SvgPicture.asset("assets/icons/play.svg"),
+              );
+      },
+    );
   }
 
   Row floatingMusicMetadata(BuildContext context) {
@@ -119,10 +119,10 @@ class _FloatingMusicState extends State<FloatingMusic> {
           ),
         ),
         const SizedBox(width: 10),
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.45,
-          child: Obx(
-            () => Column(
+        Obx(
+          () => SizedBox(
+            width: MediaQuery.of(context).size.width * 0.45,
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
