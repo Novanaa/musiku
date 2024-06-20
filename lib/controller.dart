@@ -57,7 +57,8 @@ class CurrentMusicPlayedController extends GetxController {
 
   void setCurrentMusicPlayed(CurrentMusicPlayedModel data) async {
     await CurrentMusicPlayedRepository.save(data);
-    refetchCurrentMusicPlayedState();
+    currentMusicPlayed.value = data;
+    update();
   }
 
   void refetchCurrentMusicPlayedState() async {

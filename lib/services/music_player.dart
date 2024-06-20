@@ -27,8 +27,4 @@ class MusicPlayer {
   static Future<void> setRepeatMode(LoopMode mode) async {
     await _player.setLoopMode(mode);
   }
-
-  static bool isPlaying() {
-    return _player.playing;
-  }
 }
