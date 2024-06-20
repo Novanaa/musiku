@@ -10,6 +10,7 @@ import 'package:musiku/utils/app_init.dart';
 void main() {
   Get.put(MusicController());
   Get.put(DirectoryController());
+  Get.put(CurrentMusicPlayedController());
 
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
