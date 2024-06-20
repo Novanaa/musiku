@@ -56,11 +56,10 @@ class FloatingMusic extends StatelessWidget {
         child: Row(
           children: [
             GestureDetector(
-              // TODO: Implement play previous music feature
               onTap:
                   currentMusicPlayedController.currentMusicPlayed.value == null
                       ? null
-                      : () {},
+                      : playPrevMusic,
               child: SvgPicture.asset("assets/icons/prev-music.svg"),
             ),
             const SizedBox(width: 10),
