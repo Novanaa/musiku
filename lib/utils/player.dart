@@ -37,3 +37,43 @@ Future<void> pauseMusic() async {
       position: position.inMilliseconds));
   await MusicPlayer.pause();
 }
+
+Future<void> playNextMusic() async {
+  final MusicController musicController = Get.put(MusicController());
+  final CurrentMusicPlayedController currentMusicPlayedController =
+      Get.put(CurrentMusicPlayedController());
+  final SongModel? currentMusicPlayed =
+      currentMusicPlayedController.currentMusicPlayed.value?.music;
+
+  int currentMusicPlayedIndex = musicController.music.indexWhere(
+      (value) => value.data.contains(currentMusicPlayed?.data ?? ""));
+
+  SongModel nextMusic =
+      currentMusicPlayedIndex + 1 == musicController.music.length
+          ? musicController.music.first
+          : musicController.music[currentMusicPlayedIndex + 1];
+
+  currentMusicPlayedController.setCurrentMusicPlayed(
+      CurrentMusicPlayedModel(music: nextMusic, position: 0));
+  await MusicPlayer.load(nextMusic.data);
+  await MusicPlayer.play();
+}
+
+Future<void> playPrevMusic() async {
+  final MusicController musicController = Get.put(MusicController());
+  final CurrentMusicPlayedController currentMusicPlayedController =
+      Get.put(CurrentMusicPlayedController());
+  final SongModel? currentMusicPlayed =
+      currentMusicPlayedController.currentMusicPlayed.value?.music;
+
+  int currentMusicPlayedIndex = musicController.music.indexWhere(
+      (value) => value.data.contains(currentMusicPlayed?.data ?? ""));
+  SongModel prevMusic = currentMusicPlayedIndex - 1 == -1
+      ? musicController.music.last
+      : musicController.music[currentMusicPlayedIndex - 1];
+
+  currentMusicPlayedController.setCurrentMusicPlayed(
+      CurrentMusicPlayedModel(music: prevMusic, position: 0));
+  await MusicPlayer.load(prevMusic.data);
+  await MusicPlayer.play();
+}
