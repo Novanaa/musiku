@@ -6,6 +6,7 @@ import 'package:musiku/constants/color.dart';
 import 'package:musiku/controller.dart';
 import 'package:musiku/services/music_player.dart';
 import 'package:musiku/utils/common.dart';
+import 'package:musiku/utils/player.dart';
 
 class FloatingMusic extends StatelessWidget {
   FloatingMusic({super.key});
@@ -95,14 +96,14 @@ class FloatingMusic extends StatelessWidget {
                 onTap: currentMusicPlayedController.currentMusicPlayed.value ==
                         null
                     ? null
-                    : () {},
+                    : pauseMusic,
                 child: SvgPicture.asset("assets/icons/pause.svg"),
               )
             : GestureDetector(
                 onTap: currentMusicPlayedController.currentMusicPlayed.value ==
                         null
                     ? null
-                    : () {},
+                    : replayMusic,
                 child: SvgPicture.asset("assets/icons/play.svg"),
               );
       },
