@@ -7,6 +7,7 @@ import 'package:musiku/controller.dart';
 import 'package:musiku/services/music_player.dart';
 import 'package:musiku/utils/common.dart';
 import 'package:musiku/utils/player.dart';
+import 'package:musiku/components/music_player.dart';
 
 class FloatingMusic extends StatelessWidget {
   FloatingMusic({super.key});
@@ -16,64 +17,59 @@ class FloatingMusic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      bottom: 0,
-      width: MediaQuery.of(context).size.width,
-      child: GestureDetector(
-        // TODO: Implement open music controller drawer/bottom sheet modal
-        onTap: () {},
-        child: Container(
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Color.fromARGB(255, 55, 55, 55),
-                    ColorConstants.modalBackgroundColor,
-                  ]),
-              borderRadius: BorderRadius.circular(10)),
-          padding: const EdgeInsets.all(12),
-          margin: const EdgeInsets.only(left: 15, bottom: 15, right: 15),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              floatingMusicMetadata(context),
-              floatingMusicController()
-            ],
+    return Obx(
+      () => Positioned(
+        bottom: 0,
+        width: MediaQuery.of(context).size.width,
+        child: GestureDetector(
+          onTap: currentMusicPlayedController.currentMusicPlayed.value == null
+              ? null
+              : () => openMusicPlayer(context),
+          child: Container(
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Color.fromARGB(255, 55, 55, 55),
+                      ColorConstants.modalBackgroundColor,
+                    ]),
+                borderRadius: BorderRadius.circular(10)),
+            padding: const EdgeInsets.all(12),
+            margin: const EdgeInsets.only(left: 15, bottom: 15, right: 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                floatingMusicMetadata(context),
+                floatingMusicController()
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Obx floatingMusicController() {
-    return Obx(
-      () => Opacity(
-        opacity: currentMusicPlayedController.currentMusicPlayed.value == null
-            ? 0.8
-            : 1,
-        child: Row(
-          children: [
-            GestureDetector(
-              onTap:
-                  currentMusicPlayedController.currentMusicPlayed.value == null
-                      ? null
-                      : playPrevMusic,
-              child: SvgPicture.asset("assets/icons/prev-music.svg"),
-            ),
-            const SizedBox(width: 10),
-            playAndPauseButton(),
-            const SizedBox(width: 10),
-            GestureDetector(
-              onTap:
-                  currentMusicPlayedController.currentMusicPlayed.value == null
-                      ? null
-                      : playNextMusic,
-              child: SvgPicture.asset("assets/icons/next-music.svg"),
-            ),
-          ],
-        ),
+  Opacity floatingMusicController() {
+    return Opacity(
+      opacity: currentMusicPlayedController.currentMusicPlayed.value == null
+          ? 0.8
+          : 1,
+      child: Row(
+        children: [
+          GestureDetector(
+            onTap: playPrevMusic,
+            child: SvgPicture.asset("assets/icons/prev-music.svg"),
+          ),
+          const SizedBox(width: 10),
+          playAndPauseButton(),
+          const SizedBox(width: 10),
+          GestureDetector(
+            onTap: playNextMusic,
+            child: SvgPicture.asset("assets/icons/next-music.svg"),
+          ),
+        ],
       ),
     );
   }
@@ -83,26 +79,23 @@ class FloatingMusic extends StatelessWidget {
       stream: MusicPlayer.getInstance().playerStateStream,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return GestureDetector(
-            onTap: null,
-            child: SvgPicture.asset("assets/icons/play.svg"),
+          return Opacity(
+            opacity: 0.6,
+            child: GestureDetector(
+              onTap: null,
+              child: SvgPicture.asset("assets/icons/play.svg"),
+            ),
           );
         }
 
         return snapshot.data!.playing &&
                 !(snapshot.data?.processingState == ProcessingState.completed)
             ? GestureDetector(
-                onTap: currentMusicPlayedController.currentMusicPlayed.value ==
-                        null
-                    ? null
-                    : pauseMusic,
+                onTap: pauseMusic,
                 child: SvgPicture.asset("assets/icons/pause.svg"),
               )
             : GestureDetector(
-                onTap: currentMusicPlayedController.currentMusicPlayed.value ==
-                        null
-                    ? null
-                    : replayMusic,
+                onTap: replayMusic,
                 child: SvgPicture.asset("assets/icons/play.svg"),
               );
       },
@@ -119,37 +112,35 @@ class FloatingMusic extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 10),
-        Obx(
-          () => SizedBox(
-            width: MediaQuery.of(context).size.width * 0.45,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  currentMusicPlayedController
-                          .currentMusicPlayed.value?.music.displayName ??
-                      "What do you like to play?",
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.45,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                currentMusicPlayedController
+                        .currentMusicPlayed.value?.music.displayName ??
+                    "What do you like to play?",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                    fontWeight: FontWeight.w500, fontSize: 14.5),
+              ),
+              Opacity(
+                opacity: 0.8,
+                child: Text(
+                  getMusicMetadata(currentMusicPlayedController
+                          .currentMusicPlayed.value?.music) ??
+                      "No music audio history provided!",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w500, fontSize: 14.5),
+                  style: const TextStyle(fontSize: 11.5),
                 ),
-                Opacity(
-                  opacity: 0.8,
-                  child: Text(
-                    getMusicMetadata(currentMusicPlayedController
-                            .currentMusicPlayed.value?.music) ??
-                        "No music audio history provided!",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontSize: 11.5),
-                  ),
-                )
-              ],
-            ),
+              )
+            ],
           ),
-        )
+        ),
       ],
     );
   }
