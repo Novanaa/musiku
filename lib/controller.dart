@@ -65,4 +65,11 @@ class CurrentMusicPlayedController extends GetxController {
     currentMusicPlayed.value = await CurrentMusicPlayedRepository.retrieve();
     update();
   }
+
+  void resethCurrentMusicPlayedStatePosition() async {
+    await CurrentMusicPlayedRepository.save(CurrentMusicPlayedModel(
+        music: currentMusicPlayed.value?.music as SongModel, position: 0));
+    currentMusicPlayed.value?.position = 0;
+    update();
+  }
 }
