@@ -10,7 +10,7 @@ Future<void> playMusic(SongModel music) async {
 
   currentMusicPlayedController.setCurrentMusicPlayed(
       CurrentMusicPlayedModel(music: music, position: 0));
-  await MusicPlayer.load(music.data);
+  await MusicPlayer.load(music);
   await MusicPlayer.play();
 }
 
@@ -21,7 +21,7 @@ Future<void> replayMusic() async {
       currentMusicPlayedController.currentMusicPlayed.value?.position ?? 0;
 
   await MusicPlayer.load(currentMusicPlayedController
-      .currentMusicPlayed.value?.music.data as String);
+      .currentMusicPlayed.value?.music as SongModel);
   await MusicPlayer.seekTo(Duration(milliseconds: currentMusicPlayedPosition));
   await MusicPlayer.play();
 }
@@ -55,7 +55,7 @@ Future<void> playNextMusic() async {
 
   currentMusicPlayedController.setCurrentMusicPlayed(
       CurrentMusicPlayedModel(music: nextMusic, position: 0));
-  await MusicPlayer.load(nextMusic.data);
+  await MusicPlayer.load(nextMusic);
   await MusicPlayer.play();
 }
 
@@ -74,6 +74,6 @@ Future<void> playPrevMusic() async {
 
   currentMusicPlayedController.setCurrentMusicPlayed(
       CurrentMusicPlayedModel(music: prevMusic, position: 0));
-  await MusicPlayer.load(prevMusic.data);
+  await MusicPlayer.load(prevMusic);
   await MusicPlayer.play();
 }
