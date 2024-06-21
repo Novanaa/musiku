@@ -88,6 +88,10 @@ class FloatingMusic extends StatelessWidget {
           );
         }
 
+        if (snapshot.data?.processingState == ProcessingState.completed) {
+          currentMusicPlayedController.resethCurrentMusicPlayedStatePosition();
+        }
+
         return snapshot.data!.playing &&
                 !(snapshot.data?.processingState == ProcessingState.completed)
             ? GestureDetector(
