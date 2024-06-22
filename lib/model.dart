@@ -46,3 +46,10 @@ class CurrentMusicPlayedModel {
     return 'CurrentMusicPlayedModel(position: $position, music: $music)';
   }
 }
+
+class SortMusicModel {
+  int id;
+  String title;
+
+  SortMusicModel({required this.id, required this.title});
+}
