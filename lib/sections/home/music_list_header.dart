@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:musiku/constants/color.dart';
+import 'package:musiku/sections/home/bottom_sheet.dart';
 
 class MusicListHeader extends StatelessWidget {
   const MusicListHeader({super.key});
@@ -22,7 +23,7 @@ class MusicListHeader extends StatelessWidget {
             const SizedBox(
               width: 12,
             ),
-            musicListHeaderListOptions(),
+            musicListHeaderListOptions(context),
           ])
         ],
       ),
@@ -39,11 +40,10 @@ class MusicListHeader extends StatelessWidget {
         ));
   }
 
-  InkWell musicListHeaderListOptions() {
+  InkWell musicListHeaderListOptions(BuildContext context) {
     return InkWell(
         splashColor: ColorConstants.splashColor,
-        // Placeholder for right now
-        onTap: () {},
+        onTap: () => openSortMusicBottomSheet(context),
         child: SvgPicture.asset(
           "assets/icons/list-options.svg",
         ));
