@@ -99,7 +99,7 @@ class RepeatModeDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 280,
+      height: 230,
       padding: const EdgeInsets.only(top: 15, left: 10, right: 10),
       width: MediaQuery.of(context).size.width,
       child: Column(

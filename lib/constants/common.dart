@@ -23,6 +23,5 @@ class CommonConstants {
       id: 3,
       name: "Repeat Music",
     ),
-    RepeatModeModel(id: 4, name: "Play Once"),
   ];
 }
