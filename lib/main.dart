@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:musiku/utils/app_init.dart';
 
 void main() {
+  Get.put(SortMusicController());
   Get.put(MusicController());
   Get.put(DirectoryController());
   Get.put(CurrentMusicPlayedController());
