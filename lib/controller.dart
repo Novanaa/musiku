@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:musiku/repository/current_played.dart';
 import 'package:musiku/repository/repeat_mode.dart';
 import 'package:musiku/repository/sort_music.dart';
+import 'package:musiku/utils/repeat_mode.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:musiku/model.dart';
 
@@ -133,6 +134,7 @@ class RepeatModeController extends GetxController {
   void onInit() {
     super.onInit();
     _init();
+    ever(repeatModeState, (_) => _handleRepeatModeChanges());
   }
 
   void _init() async {
@@ -148,5 +150,16 @@ class RepeatModeController extends GetxController {
     RepeatModeRepository.setRepeatModeState(state);
     repeatModeState.value = state;
     update();
+  }
+
+  void _handleRepeatModeChanges() {
+    Map<int, Function> mapModeSetter = {
+      1: () => shuffleMusic(),
+      2: () => playSequentially(),
+      3: () => repeatMusic(),
+    };
+
+    Function modeSetter = mapModeSetter[repeatModeState.value] ?? shuffleMusic;
+    modeSetter();
   }
 }
