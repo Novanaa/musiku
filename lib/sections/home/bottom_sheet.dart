@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:musiku/constants/color.dart';
+import 'package:musiku/constants/common.dart';
 import 'package:musiku/controller.dart';
 import 'package:musiku/model.dart';
 
@@ -26,7 +27,7 @@ class _SortMusicBottomSheetState extends State<SortMusicBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: 380,
       width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.only(top: 15, left: 10, right: 10),
       child: Column(
@@ -49,19 +50,12 @@ class _SortMusicBottomSheetState extends State<SortMusicBottomSheet> {
   }
 
   Container shortMusicBottomSheetOptionsList() {
-    List<SortMusicModel> sortMethodList = [
-      SortMusicModel(id: 1, title: "Recently music added"),
-      SortMusicModel(id: 2, title: "Lately music added"),
-      SortMusicModel(id: 3, title: "By alphabet (ascending)"),
-      SortMusicModel(id: 4, title: "By alphabet (descending)"),
-    ];
-
     return Container(
       margin: const EdgeInsets.only(top: 10),
       child: Obx(
         () => Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: sortMethodList
+            children: CommonConstants.sortMethodList
                 .map(
                   (value) => InkWell(
                     onTap: () => onChecked(value),
