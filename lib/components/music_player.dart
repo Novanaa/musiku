@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:musiku/constants/color.dart';
 import 'package:musiku/controller.dart';
+import 'package:musiku/sections/home/bottom_sheet.dart';
 import 'package:musiku/services/music_player.dart';
 import 'package:musiku/utils/common.dart';
 import 'package:musiku/utils/player.dart';
@@ -52,7 +53,7 @@ class MusicPlayerDrawer extends StatelessWidget {
           musicPlayerDrawerImagePlaceholder(),
           musicPlayerDrawerMetadata(context),
           musicPlayerDrawerProgressBar(),
-          musicPlayerDrawerController()
+          musicPlayerDrawerController(context)
         ],
       ),
     );
@@ -174,15 +175,14 @@ class MusicPlayerDrawer extends StatelessWidget {
     );
   }
 
-  Container musicPlayerDrawerController() {
+  Container musicPlayerDrawerController(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
-            // TODO: Implement repeat mode feature
-            onTap: null,
+            onTap: () => openRepeatModeBottomSheet(context),
             child: SvgPicture.asset(
               "assets/icons/arrow-path.svg",
             ),

@@ -19,7 +19,7 @@ class MusicListHeader extends StatelessWidget {
         children: [
           musicListHeaderText(),
           Row(children: [
-            musicListHeaderRepeatModeOptions(),
+            musicListHeaderRepeatModeOptions(context),
             const SizedBox(
               width: 12,
             ),
@@ -30,11 +30,10 @@ class MusicListHeader extends StatelessWidget {
     );
   }
 
-  InkWell musicListHeaderRepeatModeOptions() {
+  InkWell musicListHeaderRepeatModeOptions(BuildContext context) {
     return InkWell(
         splashColor: ColorConstants.splashColor,
-        // Placeholder for right now
-        onTap: () {},
+        onTap: () => openRepeatModeBottomSheet(context),
         child: SvgPicture.asset(
           "assets/icons/repeat-mode-options.svg",
         ));
