@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:musiku/repository/current_played.dart';
+import 'package:musiku/repository/sort_music.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:musiku/model.dart';
 
@@ -70,6 +71,31 @@ class CurrentMusicPlayedController extends GetxController {
     await CurrentMusicPlayedRepository.save(CurrentMusicPlayedModel(
         music: currentMusicPlayed.value?.music as SongModel, position: 0));
     currentMusicPlayed.value?.position = 0;
+    update();
+  }
+}
+
+class SortMusicController extends GetxController {
+  RxInt sortMusicState = 1.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    _init();
+  }
+
+  void _init() async {
+    if (await SortMusicRepository.getSortMusicState() == null) {
+      // Set sort music state to default state (recently)
+      setSortMusicState(1);
+    }
+
+    setSortMusicState(await SortMusicRepository.getSortMusicState() as int);
+  }
+
+  void setSortMusicState(int state) {
+    SortMusicRepository.setSortMusicState(state);
+    sortMusicState.value = state;
     update();
   }
 }
