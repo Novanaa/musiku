@@ -85,18 +85,21 @@ class SortMusicBottomSheet extends StatelessWidget {
 void openRepeatModeBottomSheet(BuildContext context) {
   showModalBottomSheet(
       context: context,
-      builder: (context) => const RepeatModeDrawer(),
+      builder: (context) => RepeatModeDrawer(),
       isScrollControlled: true,
       backgroundColor: ColorConstants.modalBackgroundColor);
 }
 
 class RepeatModeDrawer extends StatelessWidget {
-  const RepeatModeDrawer({super.key});
+  RepeatModeDrawer({super.key});
+
+  final RepeatModeController repeatModeController =
+      Get.put(RepeatModeController());
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 280,
+      height: 230,
       padding: const EdgeInsets.only(top: 15, left: 10, right: 10),
       width: MediaQuery.of(context).size.width,
       child: Column(
@@ -119,34 +122,38 @@ class RepeatModeDrawer extends StatelessWidget {
   Container repeatModeDrawerOptionsList() {
     return Container(
       margin: const EdgeInsets.only(top: 10),
-      child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: CommonConstants.repeatModeList
-              .map(
-                (value) => InkWell(
-                  onTap: () => onChecked(value),
-                  borderRadius: BorderRadius.circular(5),
-                  child: Row(
-                    children: [
-                      Radio(
-                        value: value.id,
-                        onChanged: (checkedId) {},
-                        groupValue: 1,
-                        activeColor: ColorConstants.textColor,
-                      ),
-                      Text(
-                        value.name,
-                        style: const TextStyle(fontWeight: FontWeight.w500),
-                      ),
-                    ],
+      child: Obx(
+        () => Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: CommonConstants.repeatModeList
+                .map(
+                  (value) => InkWell(
+                    onTap: () => onChecked(value),
+                    borderRadius: BorderRadius.circular(5),
+                    child: Row(
+                      children: [
+                        Radio(
+                          value: value.id,
+                          onChanged: (checkedId) {},
+                          groupValue:
+                              repeatModeController.repeatModeState.value,
+                          activeColor: ColorConstants.textColor,
+                        ),
+                        Text(
+                          value.name,
+                          style: const TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              )
-              .toList()),
+                )
+                .toList()),
+      ),
     );
   }
 
   void onChecked(RepeatModeModel value) {
+    repeatModeController.setRepeatModeState(value.id);
     Get.back();
   }
 }

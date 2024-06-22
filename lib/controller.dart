@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:musiku/repository/current_played.dart';
+import 'package:musiku/repository/repeat_mode.dart';
 import 'package:musiku/repository/sort_music.dart';
+import 'package:musiku/utils/repeat_mode.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:musiku/model.dart';
 
@@ -122,5 +124,42 @@ class SortMusicController extends GetxController {
     SortMusicRepository.setSortMusicState(state);
     sortMusicState.value = state;
     update();
+  }
+}
+
+class RepeatModeController extends GetxController {
+  RxInt repeatModeState = 1.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    _init();
+    ever(repeatModeState, (_) => _handleRepeatModeChanges());
+  }
+
+  void _init() async {
+    if (await RepeatModeRepository.getRepeatModeState() == null) {
+      // Set repeat mode to default (shuffle music)
+      RepeatModeRepository.setRepeatModeState(1);
+    }
+
+    setRepeatModeState(await RepeatModeRepository.getRepeatModeState() as int);
+  }
+
+  void setRepeatModeState(int state) {
+    RepeatModeRepository.setRepeatModeState(state);
+    repeatModeState.value = state;
+    update();
+  }
+
+  void _handleRepeatModeChanges() {
+    Map<int, Function> mapModeSetter = {
+      1: () => shuffleMusic(),
+      2: () => playSequentially(),
+      3: () => repeatMusic(),
+    };
+
+    Function modeSetter = mapModeSetter[repeatModeState.value] ?? shuffleMusic;
+    modeSetter();
   }
 }

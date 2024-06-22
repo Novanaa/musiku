@@ -88,11 +88,13 @@ class FloatingMusic extends StatelessWidget {
           );
         }
 
+        bool isPlaying = snapshot.data?.playing ?? false;
+
         if (snapshot.data?.processingState == ProcessingState.completed) {
           currentMusicPlayedController.resethCurrentMusicPlayedStatePosition();
         }
 
-        return snapshot.data!.playing &&
+        return isPlaying &&
                 !(snapshot.data?.processingState == ProcessingState.completed)
             ? GestureDetector(
                 onTap: pauseMusic,

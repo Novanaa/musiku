@@ -1,5 +1,5 @@
 import 'package:just_audio/just_audio.dart';
-import 'package:just_audio_background/just_audio_background.dart';
+import 'package:musiku/utils/common.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class MusicPlayer {
@@ -10,14 +10,7 @@ class MusicPlayer {
   }
 
   static Future<void> load(SongModel music) async {
-    await _player.setAudioSource(AudioSource.file(music.data,
-        tag: MediaItem(
-            id: music.data,
-            title: music.displayNameWOExt,
-            album: music.album == "<unknown>" ? "Unknown album" : music.album,
-            artist:
-                music.artist == "<unknown>" ? "Unknown artist" : music.artist,
-            duration: Duration(milliseconds: music.duration as int))));
+    await _player.setAudioSource(getAudioSource(music));
   }
 
   static Future<void> play() async {
