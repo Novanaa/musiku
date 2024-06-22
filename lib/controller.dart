@@ -5,15 +5,40 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:musiku/model.dart';
 
 class MusicController extends GetxController {
+  final SortMusicController sortMusicController =
+      Get.find<SortMusicController>();
+
   final OnAudioQuery _audioQuery = OnAudioQuery();
 
   final RxList<SongModel> music = <SongModel>[].obs;
 
   RxInt totalItems = 0.obs;
 
+  @override
+  void onInit() {
+    ever(sortMusicController.sortMusicState, (_) {
+      getMusic();
+    });
+    super.onInit();
+  }
+
   Future<List<SongModel>> getMusic() async {
-    List<SongModel> songs = await _audioQuery.querySongs();
-    music.addAll(songs);
+    Map<int, List<SongModel>> literalSongs = {
+      1: await _audioQuery.querySongs(sortType: SongSortType.DATE_ADDED),
+      2: (await _audioQuery.querySongs(sortType: SongSortType.DATE_ADDED))
+          .reversed
+          .toList(),
+      3: await _audioQuery.querySongs(sortType: SongSortType.DURATION),
+      4: await _audioQuery.querySongs(sortType: SongSortType.SIZE),
+      5: await _audioQuery.querySongs(orderType: OrderType.ASC_OR_SMALLER),
+      6: await _audioQuery.querySongs(orderType: OrderType.DESC_OR_GREATER)
+    };
+
+    List<SongModel> songs =
+        literalSongs[sortMusicController.sortMusicState.value] ??
+            await _audioQuery.querySongs(sortType: SongSortType.TITLE);
+
+    music.assignAll(songs);
     totalItems = songs.length.obs;
     update();
 
