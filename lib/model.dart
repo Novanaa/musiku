@@ -53,3 +53,13 @@ class SortMusicModel {
 
   SortMusicModel({required this.id, required this.title});
 }
+
+class RepeatModeModel {
+  int id;
+  String name;
+
+  RepeatModeModel({
+    required this.id,
+    required this.name,
+  });
+}
