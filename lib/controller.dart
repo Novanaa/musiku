@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:musiku/repository/current_played.dart';
 import 'package:musiku/repository/repeat_mode.dart';
 import 'package:musiku/repository/sort_music.dart';
+import 'package:musiku/utils/permission.dart';
 import 'package:musiku/utils/repeat_mode.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:musiku/model.dart';
@@ -18,10 +19,13 @@ class MusicController extends GetxController {
 
   @override
   void onInit() {
-    ever(sortMusicController.sortMusicState, (_) {
-      getMusic();
-    });
+    ever(sortMusicController.sortMusicState, (_) => refetchMusic());
     super.onInit();
+  }
+
+  void refetchMusic() async {
+    bool permission = await checkPermission();
+    if (permission) getMusic();
   }
 
   Future<List<SongModel>> getMusic() async {
