@@ -12,6 +12,7 @@
       sdk: flutter
     flutter_native_splash: ^2.4.0
     flutter_svg: ^2.0.10+1
+    fluttertoast: ^8.2.6
     get: ^4.6.6
     just_audio: ^0.9.38
     just_audio_background: ^0.0.1-beta.12
