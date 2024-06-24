@@ -21,16 +21,42 @@ void openMusicPlayer(BuildContext context) {
       isScrollControlled: true);
 }
 
-class MusicPlayerDrawer extends StatelessWidget {
+class MusicPlayerDrawer extends StatefulWidget {
   MusicPlayerDrawer({super.key});
 
+  @override
+  State<MusicPlayerDrawer> createState() => _MusicPlayerDrawerState();
+}
+
+class _MusicPlayerDrawerState extends State<MusicPlayerDrawer> {
   final CurrentMusicPlayedController currentMusicPlayedController =
       Get.put(CurrentMusicPlayedController());
 
   final double iconWidth = 28;
+
   final double iconHeight = 28;
+
   final double controllerIconWidth = 48;
+
   final double controllerIconHeight = 48;
+
+  late final Image musicPlayerPlaceholder;
+
+  @override
+  void initState() {
+    super.initState();
+    musicPlayerPlaceholder = Image.asset(
+      "assets/images/music-player-placeholder.jpg",
+      height: 290,
+      fit: BoxFit.cover,
+    );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    precacheImage(musicPlayerPlaceholder.image, context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,15 +88,11 @@ class MusicPlayerDrawer extends StatelessWidget {
 
   Container musicPlayerDrawerImagePlaceholder() {
     return Container(
-      margin: const EdgeInsets.only(top: 30),
-      child: ClipRRect(
+        margin: const EdgeInsets.only(top: 30),
+        child: ClipRRect(
           borderRadius: BorderRadius.circular(5),
-          child: Image.asset(
-            "assets/images/music-player-placeholder.jpg",
-            height: 290,
-            fit: BoxFit.cover,
-          )),
-    );
+          child: musicPlayerPlaceholder,
+        ));
   }
 
   Row musicPlayerDrawerHeader(BuildContext context) {
