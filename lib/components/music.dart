@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:musiku/components/music_options.dart';
 import 'package:musiku/components/music_player.dart';
 import 'package:musiku/utils/common.dart';
 import 'package:musiku/utils/player.dart';
@@ -47,8 +48,7 @@ class Music extends StatelessWidget {
           ),
           GestureDetector(
             child: SvgPicture.asset("assets/icons/music-options.svg"),
-            // TODO: Implement music options feature
-            onTap: () {},
+            onTap: () => openMusicOptionsModalBottomSheet(context, song),
           )
         ]),
       ),
