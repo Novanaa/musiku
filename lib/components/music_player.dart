@@ -10,6 +10,7 @@ import 'package:musiku/utils/common.dart';
 import 'package:musiku/utils/player.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
+import 'package:musiku/components/music_options.dart';
 
 void openMusicPlayer(BuildContext context) {
   showModalBottomSheet(
@@ -49,7 +50,7 @@ class MusicPlayerDrawer extends StatelessWidget {
       width: MediaQuery.of(context).size.height,
       child: Column(
         children: [
-          musicPlayerDrawerHeader(),
+          musicPlayerDrawerHeader(context),
           musicPlayerDrawerImagePlaceholder(),
           musicPlayerDrawerMetadata(context),
           musicPlayerDrawerProgressBar(),
@@ -72,7 +73,7 @@ class MusicPlayerDrawer extends StatelessWidget {
     );
   }
 
-  Row musicPlayerDrawerHeader() {
+  Row musicPlayerDrawerHeader(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -83,8 +84,10 @@ class MusicPlayerDrawer extends StatelessWidget {
         const Text("Musiku",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
         GestureDetector(
-            // TODO: Implement music options feature
-            onTap: null,
+            onTap: () => openMusicOptionsModalBottomSheet(
+                context,
+                currentMusicPlayedController.currentMusicPlayed.value?.music
+                    as SongModel),
             child: SvgPicture.asset("assets/icons/music-options.svg",
                 width: iconWidth, height: iconHeight))
       ],
