@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:musiku/constants/color.dart';
+import 'package:musiku/utils/actions.dart';
 import 'package:musiku/utils/player.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -28,8 +29,8 @@ class MusicOptions extends StatelessWidget {
           InkWell(
             borderRadius: BorderRadius.circular(10),
             onTap: () {
-              playMusic(music);
               Get.back();
+              playMusic(music);
             },
             child: Padding(
               padding: const EdgeInsets.all(10),
@@ -115,8 +116,10 @@ class MusicOptions extends StatelessWidget {
           ),
           InkWell(
             borderRadius: BorderRadius.circular(10),
-            // TODO: Implement delete music feature
-            onTap: () {},
+            onTap: () {
+              Get.back();
+              deleteMusic(music.data);
+            },
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: Row(
