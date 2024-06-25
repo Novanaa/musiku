@@ -21,7 +21,7 @@ Future<void> getPermission() async {
     PermissionStatus permissionStatus = await Permission.storage.request();
 
     if (permissionStatus.isGranted) {
-      await applicationInit();
+      await onApplicationInit();
       Get.offAll(const Layout(), transition: Transition.cupertino);
     }
 
