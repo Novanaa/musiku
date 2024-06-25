@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:musiku/constants/color.dart';
@@ -32,4 +33,9 @@ void showToast(String msg) {
       backgroundColor: ColorConstants.modalBackgroundColor,
       textColor: ColorConstants.textColor,
       fontSize: 16.0);
+}
+
+String getDate(int unixEpoch) {
+  return DateFormat("EEEE, d MMMM yyyy")
+      .format(DateTime.fromMillisecondsSinceEpoch((unixEpoch * 1000)));
 }
