@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:musiku/constants/color.dart';
+import 'package:musiku/screens/collection.dart';
 
 class CollectionHeader extends StatelessWidget implements PreferredSizeWidget {
   const CollectionHeader({super.key});
@@ -24,10 +26,12 @@ class CollectionHeader extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           icon: SvgPicture.asset("assets/icons/search.svg"),
-          onPressed: () {},
+          onPressed: () => Get.to(const CollectionSearchScreen(),
+              transition: Transition.cupertino),
         ),
         IconButton(
           icon: SvgPicture.asset("assets/icons/plus.svg"),
+          // TODO: Implement add user collection drawer
           onPressed: () {},
         )
       ],
