@@ -39,3 +39,7 @@ String getDate(int unixEpoch) {
   return DateFormat("EEEE, d MMMM yyyy")
       .format(DateTime.fromMillisecondsSinceEpoch((unixEpoch * 1000)));
 }
+
+String parseFileSize(int bytes) {
+  return "${(bytes / (1024 * 1024)).round()} MB";
+}
