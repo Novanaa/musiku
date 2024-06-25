@@ -59,7 +59,6 @@ class DirectoryInformation extends StatelessWidget {
                   () => Opacity(
                     opacity: 0.8,
                     child: Text(
-                      // Placeholder for right now, change it with real data later on!
                       '${musicController.totalItems} items found',
                       style: const TextStyle(fontSize: 12.5),
                     ),
