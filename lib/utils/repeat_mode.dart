@@ -21,7 +21,6 @@ void shuffleMusic() {
 }
 
 void playSequentially() {
-  MusicPlayer.getInstance().playerStateStream.listen((value) {
-    if (value.processingState == ProcessingState.completed) playNextMusic();
-  });
+  if (MusicPlayer.getInstance().playerState.processingState ==
+      ProcessingState.completed) playNextMusic();
 }
