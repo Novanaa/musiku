@@ -97,13 +97,6 @@ class CurrentMusicPlayedController extends GetxController {
     currentMusicPlayed.value = await CurrentMusicPlayedRepository.retrieve();
     update();
   }
-
-  void resethCurrentMusicPlayedStatePosition() async {
-    await CurrentMusicPlayedRepository.save(CurrentMusicPlayedModel(
-        music: currentMusicPlayed.value?.music as SongModel, position: 0));
-    currentMusicPlayed.value?.position = 0;
-    update();
-  }
 }
 
 class SortMusicController extends GetxController {
@@ -138,7 +131,7 @@ class RepeatModeController extends GetxController {
   void onInit() {
     super.onInit();
     _init();
-    ever(repeatModeState, (_) => _handleRepeatModeChanges());
+    ever(repeatModeState, (_) => handleRepeatModeChanges());
   }
 
   void _init() async {
@@ -156,7 +149,7 @@ class RepeatModeController extends GetxController {
     update();
   }
 
-  void _handleRepeatModeChanges() {
+  void handleRepeatModeChanges() {
     Map<int, Function> mapModeSetter = {
       1: () => shuffleMusic(),
       2: () => playSequentially(),

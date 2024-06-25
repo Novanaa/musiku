@@ -184,7 +184,7 @@ class _MusicPlayerDrawerState extends State<MusicPlayerDrawer> {
               ? Duration(
                   milliseconds: currentMusicPlayedController
                       .currentMusicPlayed.value?.position as int)
-              : snapshot.data!;
+              : snapshot.data ?? const Duration(milliseconds: 0);
 
           return ProgressBar(
             progress: progress,
@@ -264,11 +264,6 @@ class _MusicPlayerDrawerState extends State<MusicPlayerDrawer> {
           }
 
           bool isPlaying = snapshot.data?.playing ?? false;
-
-          if (snapshot.data?.processingState == ProcessingState.completed) {
-            currentMusicPlayedController
-                .resethCurrentMusicPlayedStatePosition();
-          }
 
           return isPlaying &&
                   !(snapshot.data?.processingState == ProcessingState.completed)

@@ -12,16 +12,14 @@ void repeatMusic() {
 
 void shuffleMusic() {
   final MusicController musicController = Get.put(MusicController());
-  MusicPlayer.getInstance().playerStateStream.listen((value) {
-    if (value.processingState == ProcessingState.completed) {
-      int randomInt = Random().nextInt(musicController.music.length);
-      playMusic(musicController.music[randomInt]);
-    }
-  });
+  if (MusicPlayer.getInstance().playerState.processingState ==
+      ProcessingState.completed) {
+    int randomInt = Random().nextInt(musicController.music.length);
+    playMusic(musicController.music[randomInt]);
+  }
 }
 
 void playSequentially() {
-  MusicPlayer.getInstance().playerStateStream.listen((value) {
-    if (value.processingState == ProcessingState.completed) playNextMusic();
-  });
+  if (MusicPlayer.getInstance().playerState.processingState ==
+      ProcessingState.completed) playNextMusic();
 }

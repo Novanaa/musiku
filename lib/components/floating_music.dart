@@ -14,6 +14,8 @@ class FloatingMusic extends StatelessWidget {
 
   final CurrentMusicPlayedController currentMusicPlayedController =
       Get.put(CurrentMusicPlayedController());
+  final RepeatModeController repeatModeController =
+      Get.put(RepeatModeController());
 
   @override
   Widget build(BuildContext context) {
@@ -89,10 +91,7 @@ class FloatingMusic extends StatelessWidget {
         }
 
         bool isPlaying = snapshot.data?.playing ?? false;
-
-        if (snapshot.data?.processingState == ProcessingState.completed) {
-          currentMusicPlayedController.resethCurrentMusicPlayedStatePosition();
-        }
+        repeatModeController.handleRepeatModeChanges();
 
         return isPlaying &&
                 !(snapshot.data?.processingState == ProcessingState.completed)
