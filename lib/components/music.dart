@@ -80,7 +80,7 @@ class Music extends StatelessWidget {
                       width: 35,
                       height: 35,
                     )
-                  : const SizedBox(width: 35, height: 35)
+                  : const SizedBox(width: 15, height: 35)
             ],
           );
         });
