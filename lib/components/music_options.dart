@@ -7,6 +7,7 @@ import 'package:musiku/utils/common.dart';
 import 'package:musiku/utils/parse_duration.dart';
 import 'package:musiku/utils/player.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:musiku/components/music_player.dart';
 
 void openMusicOptionsModalBottomSheet(BuildContext context, SongModel song) {
   showModalBottomSheet(
@@ -33,6 +34,7 @@ class MusicOptions extends StatelessWidget {
             onTap: () {
               Get.back();
               playMusic(music);
+              openMusicPlayer(context);
             },
             child: Padding(
               padding: const EdgeInsets.all(10),
