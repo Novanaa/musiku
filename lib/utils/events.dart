@@ -11,12 +11,14 @@ Future<void> onApplicationInit() async {
   final MusicController musicController = Get.put(MusicController());
   final DirectoryController directoryController =
       Get.put(DirectoryController());
+  final ArtistController artistController = Get.put(ArtistController());
 
   bool isPermissionGranted = await checkPermission();
 
   if (isPermissionGranted) {
     musicController.getMusic();
     directoryController.getDirectory();
+    artistController.getArtist();
 
     await JustAudioBackground.init(
       androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',

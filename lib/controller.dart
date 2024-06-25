@@ -160,3 +160,15 @@ class RepeatModeController extends GetxController {
     modeSetter();
   }
 }
+
+class ArtistController extends GetxController {
+  RxList<ArtistModel> artist = <ArtistModel>[].obs;
+
+  final OnAudioQuery _audioQuery = OnAudioQuery();
+
+  Future<void> getArtist() async {
+    List<ArtistModel> artistList = await _audioQuery.queryArtists();
+    artist.assignAll(artistList);
+    update();
+  }
+}
