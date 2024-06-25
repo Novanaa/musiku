@@ -19,6 +19,7 @@ void main() {
       .then((value) => runApp(const MainApp()));
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   onApplicationInit().then((value) => FlutterNativeSplash.remove());
+  onApplicationTerminated();
 }
 
 class MainApp extends StatelessWidget {
