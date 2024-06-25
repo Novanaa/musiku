@@ -5,7 +5,7 @@ import 'package:musiku/constants/color.dart';
 import 'package:musiku/controller.dart';
 import 'package:musiku/screens/layout.dart';
 import 'package:flutter/services.dart';
-import 'package:musiku/utils/app_init.dart';
+import 'package:musiku/utils/events.dart';
 
 void main() {
   Get.put(SortMusicController());

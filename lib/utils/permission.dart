@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:musiku/screens/layout.dart';
 import 'package:musiku/screens/welcome.dart';
-import 'package:musiku/utils/app_init.dart';
+import 'package:musiku/utils/events.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 Future<bool> checkPermission() async {
