@@ -204,4 +204,14 @@ class PlaylistController extends GetxController {
     playlist.removeWhere((value) => value.id == playlistId);
     update();
   }
+
+  void addPlaylistSongs(String playlistId, List<SongModel> songs) {
+    PlaylistRepository.addPlaylistSongs(playlistId, songs);
+    int playlistIndex = playlist.indexWhere((value) => value.id == playlistId);
+
+    model.PlaylistModel singlePlaylist = playlist[playlistIndex];
+    singlePlaylist.songs.addAll(songs);
+    playlist[playlistIndex] = singlePlaylist;
+    update();
+  }
 }
