@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -8,7 +9,7 @@ class FavoritesMusicRepository {
 
   static Future<List<SongModel>> getFavoritesMusicState() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    List<Map<String, dynamic>> jsonMap =
+    List<dynamic> jsonMap =
         jsonDecode(preferences.getString(favoritesMusicKey) as String);
 
     return List<SongModel>.from(
@@ -19,7 +20,16 @@ class FavoritesMusicRepository {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     List<SongModel> favoritesMusicState = await getFavoritesMusicState();
 
-    favoritesMusicState.add(song);
+    favoritesMusicState.assign(song);
+    preferences.setString(favoritesMusicKey,
+        jsonEncode(favoritesMusicState.map((value) => value.getMap).toList()));
+  }
+
+  static void unfavoriteMusic(SongModel song) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    List<SongModel> favoritesMusicState = await getFavoritesMusicState();
+
+    favoritesMusicState.removeWhere((value) => value.data == song.data);
     preferences.setString(favoritesMusicKey,
         jsonEncode(favoritesMusicState.map((value) => value.getMap).toList()));
   }
