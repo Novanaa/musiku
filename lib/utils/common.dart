@@ -4,6 +4,7 @@ import 'package:just_audio_background/just_audio_background.dart';
 import 'package:musiku/constants/color.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 String? getMusicMetadata(SongModel? song) {
   if (song == null) return null;
@@ -52,4 +53,10 @@ String parseDuration(int duration) {
   int durationInSeconds = duration % 60.ceil();
 
   return "$durationInMinutes:${durationInSeconds < 10 ? "0$durationInSeconds" : durationInSeconds}";
+}
+
+void openUrl(String url) async {
+  final Uri uri = Uri.parse(url);
+
+  if (await canLaunchUrl(uri)) await launchUrl(uri);
 }
