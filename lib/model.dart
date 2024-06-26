@@ -63,3 +63,34 @@ class RepeatModeModel {
     required this.name,
   });
 }
+
+class PlaylistModel {
+  String id;
+  String title;
+  List<SongModel> songs;
+  int totalSongs;
+
+  PlaylistModel(
+      {required this.id,
+      required this.title,
+      required this.songs,
+      required this.totalSongs});
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'title': title,
+        'songs': songs.map((value) => value.getMap).toList(),
+        'totalSongs': totalSongs
+      };
+
+  factory PlaylistModel.fromJson(Map<String, dynamic> json) => PlaylistModel(
+      id: json['id'],
+      songs: List<SongModel>.from(json['songs']),
+      title: json['title'],
+      totalSongs: json['totalSongs']);
+
+  @override
+  String toString() {
+    return 'PlaylistModel(id: $id, songs: $songs, title: $title, totalSongs: $totalSongs)';
+  }
+}
