@@ -1,7 +1,9 @@
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:musiku/constants/color.dart';
+import 'package:musiku/controller.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -59,4 +61,10 @@ void openUrl(String url) async {
   final Uri uri = Uri.parse(url);
 
   if (await canLaunchUrl(uri)) await launchUrl(uri);
+}
+
+bool isMusicFavorited(SongModel music) {
+  final FavoritesMusicController favoritesMusicController =
+      Get.put(FavoritesMusicController());
+  return favoritesMusicController.favoritesMusic.contains(music);
 }
