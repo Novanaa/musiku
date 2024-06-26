@@ -1,11 +1,12 @@
 import 'package:get/get.dart';
 import 'package:musiku/repository/current_played.dart';
+import 'package:musiku/repository/playlist.dart';
 import 'package:musiku/repository/repeat_mode.dart';
 import 'package:musiku/repository/sort_music.dart';
 import 'package:musiku/utils/permission.dart';
 import 'package:musiku/utils/repeat_mode.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:musiku/model.dart';
+import 'package:musiku/model.dart' as model;
 
 class MusicController extends GetxController {
   final SortMusicController sortMusicController =
@@ -53,7 +54,7 @@ class MusicController extends GetxController {
 }
 
 class DirectoryController extends GetxController {
-  final RxList<Directory> directory = <Directory>[].obs;
+  final RxList<model.Directory> directory = <model.Directory>[].obs;
 
   final OnAudioQuery _audioQuery = OnAudioQuery();
 
@@ -61,12 +62,13 @@ class DirectoryController extends GetxController {
 
   void getDirectory() async {
     List<SongModel> music = await _audioQuery.querySongs();
-    List<Directory> mappedDirectories = music
+    List<model.Directory> mappedDirectories = music
         .map((value) {
           List<String> splitedPath = value.data.split("/");
           splitedPath.removeLast();
 
-          return Directory(path: splitedPath.join("/"), name: splitedPath.last);
+          return model.Directory(
+              path: splitedPath.join("/"), name: splitedPath.last);
         })
         .toSet()
         .toList();
@@ -78,8 +80,8 @@ class DirectoryController extends GetxController {
 }
 
 class CurrentMusicPlayedController extends GetxController {
-  Rx<CurrentMusicPlayedModel?> currentMusicPlayed =
-      Rx<CurrentMusicPlayedModel?>(null);
+  Rx<model.CurrentMusicPlayedModel?> currentMusicPlayed =
+      Rx<model.CurrentMusicPlayedModel?>(null);
 
   @override
   void onInit() {
@@ -87,7 +89,7 @@ class CurrentMusicPlayedController extends GetxController {
     refetchCurrentMusicPlayedState();
   }
 
-  void setCurrentMusicPlayed(CurrentMusicPlayedModel data) async {
+  void setCurrentMusicPlayed(model.CurrentMusicPlayedModel data) async {
     await CurrentMusicPlayedRepository.save(data);
     currentMusicPlayed.value = data;
     update();
@@ -169,6 +171,37 @@ class ArtistController extends GetxController {
   Future<void> getArtist() async {
     List<ArtistModel> artistList = await _audioQuery.queryArtists();
     artist.assignAll(artistList);
+    update();
+  }
+}
+
+class PlaylistController extends GetxController {
+  RxList<model.PlaylistModel> playlist = <model.PlaylistModel>[].obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    _init();
+  }
+
+  void _init() async {
+    PlaylistRepository.init();
+    List<model.PlaylistModel> playlistState =
+        await PlaylistRepository.getPlaylistState();
+
+    playlist.assignAll(playlistState);
+    update();
+  }
+
+  void setPlaylistState(model.PlaylistModel state) {
+    PlaylistRepository.setPlaylistState(state);
+    playlist.add(state);
+    update();
+  }
+
+  void deletePlaylistState(String playlistId) {
+    PlaylistRepository.deletePlaylistState(playlistId);
+    playlist.removeWhere((value) => value.id == playlistId);
     update();
   }
 }
