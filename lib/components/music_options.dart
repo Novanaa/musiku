@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:musiku/constants/color.dart';
 import 'package:musiku/utils/actions.dart';
 import 'package:musiku/utils/common.dart';
-import 'package:musiku/utils/parse_duration.dart';
 import 'package:musiku/utils/player.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:musiku/components/music_player.dart';
