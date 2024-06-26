@@ -23,7 +23,7 @@ class MusicOptions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 255,
+      height: 270,
       width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
       child: Column(
@@ -36,7 +36,8 @@ class MusicOptions extends StatelessWidget {
               openMusicPlayer(context);
             },
             child: Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.only(
+                  top: 12, bottom: 12, left: 10, right: 10),
               child: Row(
                 children: [
                   SvgPicture.asset(
@@ -58,7 +59,8 @@ class MusicOptions extends StatelessWidget {
             // TODO: Implement add to playlist feature
             onTap: () {},
             child: Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.only(
+                  top: 12, bottom: 12, left: 10, right: 10),
               child: Row(
                 children: [
                   SvgPicture.asset(
@@ -77,26 +79,7 @@ class MusicOptions extends StatelessWidget {
               ),
             ),
           ),
-          InkWell(
-            borderRadius: BorderRadius.circular(10),
-            // TODO: Implement add to favorites music feature
-            onTap: () {},
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Row(
-                children: [
-                  SvgPicture.asset("assets/icons/heart.svg"),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  const Text(
-                    "Save To Favorites",
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
-                  )
-                ],
-              ),
-            ),
-          ),
+          Obx(() => musicOptionsFavoritesMusic()),
           InkWell(
             borderRadius: BorderRadius.circular(10),
             onTap: () {
@@ -104,7 +87,8 @@ class MusicOptions extends StatelessWidget {
               openMusicInformationDrawer(context, music);
             },
             child: Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.only(
+                  top: 12, bottom: 12, left: 10, right: 10),
               child: Row(
                 children: [
                   SvgPicture.asset("assets/icons/info.svg"),
@@ -126,7 +110,8 @@ class MusicOptions extends StatelessWidget {
               deleteMusic(music.data);
             },
             child: Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.only(
+                  top: 12, bottom: 12, left: 10, right: 10),
               child: Row(
                 children: [
                   SvgPicture.asset(
@@ -148,6 +133,58 @@ class MusicOptions extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  InkWell musicOptionsFavoritesMusic() {
+    bool isFavorited = isMusicFavorited(music);
+
+    return isFavorited
+        ? InkWell(
+            borderRadius: BorderRadius.circular(10),
+            onTap: () {
+              unfavoriteMusic(music);
+              Get.back();
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  top: 12, bottom: 12, left: 10, right: 10),
+              child: Row(
+                children: [
+                  SvgPicture.asset("assets/icons/heart.svg"),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  const Text(
+                    "Remove From Favorites",
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+                  )
+                ],
+              ),
+            ),
+          )
+        : InkWell(
+            borderRadius: BorderRadius.circular(10),
+            onTap: () {
+              addFavoritesMusic(music);
+              Get.back();
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  top: 12, bottom: 12, left: 10, right: 10),
+              child: Row(
+                children: [
+                  SvgPicture.asset("assets/icons/outline-heart.svg"),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  const Text(
+                    "Save To Favorites",
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+                  )
+                ],
+              ),
+            ),
+          );
   }
 }
 
