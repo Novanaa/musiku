@@ -240,4 +240,10 @@ class FavoritesMusicController extends GetxController {
     favoritesMusic.add(song);
     update();
   }
+
+  void unfavoriteMusic(SongModel song) {
+    FavoritesMusicRepository.unfavoriteMusic(song);
+    favoritesMusic.removeWhere((value) => value.data == song.data);
+    update();
+  }
 }
