@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:musiku/repository/current_played.dart';
+import 'package:musiku/repository/favorites_music.dart';
 import 'package:musiku/repository/playlist.dart';
 import 'package:musiku/repository/repeat_mode.dart';
 import 'package:musiku/repository/sort_music.dart';
@@ -212,6 +213,31 @@ class PlaylistController extends GetxController {
     model.PlaylistModel singlePlaylist = playlist[playlistIndex];
     singlePlaylist.songs.addAll(songs);
     playlist[playlistIndex] = singlePlaylist;
+    update();
+  }
+}
+
+class FavoritesMusicController extends GetxController {
+  RxList<SongModel> favoritesMusic = <SongModel>[].obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    _init();
+  }
+
+  void _init() async {
+    FavoritesMusicRepository.init();
+    List<SongModel> favoritesMusicState =
+        await FavoritesMusicRepository.getFavoritesMusicState();
+
+    favoritesMusic.assignAll(favoritesMusicState);
+    update();
+  }
+
+  void addFavoritesMusic(SongModel song) {
+    FavoritesMusicRepository.addFavoritesMusic(song);
+    favoritesMusic.add(song);
     update();
   }
 }
