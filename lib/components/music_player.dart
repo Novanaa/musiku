@@ -6,6 +6,7 @@ import 'package:musiku/constants/color.dart';
 import 'package:musiku/controller.dart';
 import 'package:musiku/sections/home/bottom_sheet.dart';
 import 'package:musiku/services/music_player.dart';
+import 'package:musiku/utils/actions.dart';
 import 'package:musiku/utils/common.dart';
 import 'package:musiku/utils/player.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -149,15 +150,29 @@ class _MusicPlayerDrawerState extends State<MusicPlayerDrawer> {
                   ],
                 ),
               )),
-          GestureDetector(
-            // TODO: Implement favorites music feature
-            onTap: null,
-            child: SvgPicture.asset("assets/icons/heart.svg",
-                width: iconWidth, height: iconHeight),
-          )
+          Obx(() => musicPlayerFavorites())
         ],
       ),
     );
+  }
+
+  GestureDetector musicPlayerFavorites() {
+    bool isFavorited = isMusicFavorited(currentMusicPlayedController
+        .currentMusicPlayed.value?.music as SongModel);
+
+    return isFavorited
+        ? GestureDetector(
+            onTap: () => unfavoriteMusic(currentMusicPlayedController
+                .currentMusicPlayed.value?.music as SongModel),
+            child: SvgPicture.asset("assets/icons/heart.svg",
+                width: iconWidth, height: iconHeight),
+          )
+        : GestureDetector(
+            onTap: () => addFavoritesMusic(currentMusicPlayedController
+                .currentMusicPlayed.value?.music as SongModel),
+            child: SvgPicture.asset("assets/icons/outline-heart.svg",
+                width: iconWidth, height: iconHeight),
+          );
   }
 
   Container musicPlayerDrawerProgressBar() {
@@ -270,14 +285,14 @@ class _MusicPlayerDrawerState extends State<MusicPlayerDrawer> {
               ? GestureDetector(
                   onTap: pauseMusic,
                   child: SvgPicture.asset("assets/icons/solid-pause.svg",
-                      width: controllerIconWidth + 5,
-                      height: controllerIconHeight + 5),
+                      width: controllerIconWidth + 10,
+                      height: controllerIconHeight + 10),
                 )
               : GestureDetector(
                   onTap: replayMusic,
                   child: SvgPicture.asset("assets/icons/solid-play.svg",
-                      width: controllerIconWidth + 5,
-                      height: controllerIconHeight + 5),
+                      width: controllerIconWidth + 10,
+                      height: controllerIconHeight + 10),
                 );
         });
   }

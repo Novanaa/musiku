@@ -1,9 +1,12 @@
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:musiku/constants/color.dart';
+import 'package:musiku/controller.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 String? getMusicMetadata(SongModel? song) {
   if (song == null) return null;
@@ -42,4 +45,26 @@ String getDate(int unixEpoch) {
 
 String parseFileSize(int bytes) {
   return "${(bytes / (1024 * 1024)).round()} MB";
+}
+
+String parseDuration(int duration) {
+  Duration convertedDuration = Duration(milliseconds: duration);
+  String durationInMinutes = convertedDuration.inMinutes < 10
+      ? "0${convertedDuration.inMinutes}"
+      : convertedDuration.inMinutes.toString();
+  int durationInSeconds = duration % 60.ceil();
+
+  return "$durationInMinutes:${durationInSeconds < 10 ? "0$durationInSeconds" : durationInSeconds}";
+}
+
+void openUrl(String url) async {
+  final Uri uri = Uri.parse(url);
+
+  if (await canLaunchUrl(uri)) await launchUrl(uri);
+}
+
+bool isMusicFavorited(SongModel music) {
+  final FavoritesMusicController favoritesMusicController =
+      Get.put(FavoritesMusicController());
+  return favoritesMusicController.favoritesMusic.contains(music);
 }

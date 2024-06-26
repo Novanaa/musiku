@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:musiku/constants/color.dart';
 import 'package:musiku/constants/metadata.dart';
-import 'package:musiku/utils/open_url.dart';
+import 'package:musiku/utils/common.dart';
 
 class HomeCards extends StatelessWidget {
   const HomeCards({super.key});
