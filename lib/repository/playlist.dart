@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:musiku/model.dart';
-import 'package:on_audio_query/on_audio_query.dart' as queryModel;
+import 'package:on_audio_query/on_audio_query.dart' as query_model;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PlaylistRepository {
@@ -41,7 +41,7 @@ class PlaylistRepository {
   }
 
   static void addPlaylistSongs(
-      String playlistId, List<queryModel.SongModel> songs) async {
+      String playlistId, List<query_model.SongModel> songs) async {
     SharedPreferences prefrences = await SharedPreferences.getInstance();
     List<PlaylistModel> playlists = await getPlaylistState();
     int playlistIndex = playlists.indexWhere((value) => value.id == playlistId);

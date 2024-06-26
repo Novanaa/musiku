@@ -14,6 +14,7 @@ void main() {
   Get.put(CurrentMusicPlayedController());
   Get.put(RepeatModeController());
   Get.put(PlaylistController());
+  Get.put(FavoritesMusicController());
 
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
