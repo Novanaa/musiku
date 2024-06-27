@@ -23,7 +23,7 @@ class CollectionList extends StatelessWidget {
 
   CollectionItem favoritesMusicItem() {
     return CollectionItem(
-      title: "Favorites Music",
+      title: "Favorites",
       description: "Collection",
       onTap: () => Get.to(() => const FavoritesMusicScreen(),
           transition: Transition.cupertino),
@@ -38,6 +38,17 @@ class CollectionList extends StatelessWidget {
       // TODO: Implement view single playlist feature
       onTap: () {},
       iconPath: "assets/icons/playlist.svg",
+    );
+  }
+
+  CollectionItem artistItem(String title) {
+    return CollectionItem(
+      title: title,
+      borderRadius: 1000,
+      description: "Artist",
+      // TODO: Implement view single playlist feature
+      onTap: () {},
+      iconPath: "assets/icons/artist.svg",
     );
   }
 }
