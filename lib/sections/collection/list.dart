@@ -16,9 +16,7 @@ class CollectionList extends StatelessWidget {
         mainAxisSpacing: 35,
         crossAxisSpacing: 10,
         childAspectRatio: 1 / 1.4,
-        children: [
-          favoritesMusicItem(),
-        ],
+        children: [favoritesMusicItem()],
       ),
     );
   }
@@ -30,6 +28,16 @@ class CollectionList extends StatelessWidget {
       onTap: () => Get.to(() => const FavoritesMusicScreen(),
           transition: Transition.cupertino),
       iconPath: "assets/icons/heart.svg",
+    );
+  }
+
+  CollectionItem playlistItem(String title) {
+    return CollectionItem(
+      title: title,
+      description: "Playlist",
+      // TODO: Implement view single playlist feature
+      onTap: () {},
+      iconPath: "assets/icons/playlist.svg",
     );
   }
 }
