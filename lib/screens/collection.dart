@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:musiku/components/collection_item.dart';
 import 'package:musiku/components/placeholder.dart';
 import 'package:musiku/constants/color.dart';
+import 'package:musiku/controller.dart';
+import 'package:musiku/model.dart' as model;
 import 'package:musiku/sections/collection/header.dart';
 import 'package:musiku/sections/collection/list.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 
 class CollectionScreen extends StatelessWidget {
   const CollectionScreen({super.key});
@@ -34,8 +39,39 @@ class _CollectionSearchScreenState extends State<CollectionSearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: collectionSearchScreenAppBar(),
-      // TODO: Implement search user collection feature
-      body: const SearchWelcomeScreen(),
+      body: searchCollection(),
+    );
+  }
+
+  Widget searchCollection() {
+    final PlaylistController playlistController = Get.put(PlaylistController());
+    final ArtistController artistController = Get.put(ArtistController());
+    List<model.PlaylistModel> filteredPlaylist = playlistController.playlist
+        .where((value) =>
+            value.title.toLowerCase().contains(keyword.toLowerCase()))
+        .toList();
+    List<ArtistModel> filteredArtist = artistController.artist
+        .where((value) =>
+            value.artist.toLowerCase().contains(keyword.toLowerCase()))
+        .toList();
+
+    if (filteredPlaylist.isEmpty && filteredArtist.isEmpty) {
+      return const SearchNotFoundPlaceholder();
+    }
+
+    return Container(
+      margin: const EdgeInsets.all(15),
+      child: GridView.count(
+        crossAxisCount: 3,
+        mainAxisSpacing: 35,
+        crossAxisSpacing: 15,
+        childAspectRatio: 1 / 1.4,
+        children: [
+          ...filteredPlaylist
+              .map((value) => CollectionItemList.playlist(value)),
+          ...filteredArtist.map((value) => CollectionItemList.artist(value)),
+        ],
+      ),
     );
   }
 
