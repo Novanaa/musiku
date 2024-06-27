@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:musiku/constants/color.dart';
+import 'package:musiku/controller.dart';
+import 'package:musiku/model.dart' as model;
+import 'package:on_audio_query/on_audio_query.dart';
 
 class CollectionItem extends StatelessWidget {
   final VoidCallback onTap;
@@ -34,7 +38,7 @@ class CollectionItem extends StatelessWidget {
                       ColorConstants.modalBackgroundColor,
                     ])),
             child: InkWell(
-              borderRadius: BorderRadius.circular(5),
+              borderRadius: BorderRadius.circular(borderRadius ?? 5),
               onTap: onTap,
               child: Center(
                 child: SvgPicture.asset(
@@ -72,5 +76,44 @@ class CollectionItem extends StatelessWidget {
         )
       ],
     );
+  }
+}
+
+class CollectionItemList {
+  static CollectionItem artist(ArtistModel artist) {
+    return CollectionItem(
+      title: artist.artist == "<unknown>" ? "Unkown artist" : artist.artist,
+      borderRadius: 1000,
+      description: "Artist",
+      // TODO: Implement view single artist feature
+      onTap: () {},
+      iconPath: "assets/icons/artist.svg",
+    );
+  }
+
+  static CollectionItem playlist(model.PlaylistModel playlist) {
+    return CollectionItem(
+      title: playlist.title,
+      description: "Playlist",
+      // TODO: Implement view single playlist feature
+      onTap: () {},
+      iconPath: "assets/icons/playlist.svg",
+    );
+  }
+
+  static List<CollectionItem> artistItemList() {
+    final ArtistController artistController = Get.put(ArtistController());
+
+    return artistController.artist
+        .map((value) => CollectionItemList.artist(value))
+        .toList();
+  }
+
+  static List<CollectionItem> playlistItemList() {
+    final PlaylistController playlistController = Get.put(PlaylistController());
+
+    return playlistController.playlist
+        .map((value) => CollectionItemList.playlist(value))
+        .toList();
   }
 }
