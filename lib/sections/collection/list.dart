@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:musiku/constants/color.dart';
+import 'package:musiku/components/collection_item.dart';
 import 'package:musiku/screens/favorites.dart';
 
 class CollectionList extends StatelessWidget {
@@ -11,10 +10,12 @@ class CollectionList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(15),
+      padding: const EdgeInsets.only(bottom: 40),
       child: GridView.count(
         crossAxisCount: 3,
-        mainAxisSpacing: 10,
+        mainAxisSpacing: 35,
         crossAxisSpacing: 10,
+        childAspectRatio: 1 / 1.4,
         children: [
           favoritesMusicItem(),
         ],
@@ -22,31 +23,13 @@ class CollectionList extends StatelessWidget {
     );
   }
 
-  InkWell favoritesMusicItem() {
-    return InkWell(
-      borderRadius: BorderRadius.circular(5),
+  CollectionItem favoritesMusicItem() {
+    return CollectionItem(
+      title: "Favorites Music",
+      description: "Collection",
       onTap: () => Get.to(() => const FavoritesMusicScreen(),
           transition: Transition.cupertino),
-      child: Container(
-        height: 200,
-        width: 200,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            gradient: const LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Color.fromARGB(255, 55, 55, 55),
-                  ColorConstants.modalBackgroundColor,
-                ])),
-        child: Center(
-          child: SvgPicture.asset(
-            "assets/icons/heart.svg",
-            width: 35,
-            height: 35,
-          ),
-        ),
-      ),
+      iconPath: "assets/icons/heart.svg",
     );
   }
 }
