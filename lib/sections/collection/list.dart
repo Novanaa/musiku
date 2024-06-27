@@ -16,7 +16,7 @@ class CollectionList extends StatelessWidget {
         mainAxisSpacing: 35,
         crossAxisSpacing: 10,
         childAspectRatio: 1 / 1.4,
-        children: [favoritesMusicItem()],
+        children: [favoritesMusicItem(), addPlaylistItem()],
       ),
     );
   }
@@ -46,9 +46,18 @@ class CollectionList extends StatelessWidget {
       title: title,
       borderRadius: 1000,
       description: "Artist",
-      // TODO: Implement view single playlist feature
+      // TODO: Implement view single artist feature
       onTap: () {},
       iconPath: "assets/icons/artist.svg",
+    );
+  }
+
+  CollectionItem addPlaylistItem() {
+    return CollectionItem(
+      title: "Add Playlist",
+      // TODO: Implement add playlist feature
+      onTap: () {},
+      iconPath: "assets/icons/plus.svg",
     );
   }
 }
