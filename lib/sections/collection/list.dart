@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:musiku/components/collection_item.dart';
-import 'package:musiku/controller.dart';
 import 'package:musiku/screens/favorites.dart';
 
 class CollectionList extends StatelessWidget {
@@ -19,28 +18,12 @@ class CollectionList extends StatelessWidget {
         childAspectRatio: 1 / 1.4,
         children: [
           favoritesMusicItem(),
-          ...playlistItemList(),
-          ...artistItemList(),
+          ...CollectionItemList.playlistItemList(),
+          ...CollectionItemList.artistItemList(),
           addPlaylistItem()
         ],
       ),
     );
-  }
-
-  List<CollectionItem> artistItemList() {
-    final ArtistController artistController = Get.put(ArtistController());
-
-    return artistController.artist
-        .map((value) => CollectionItemList.artist(value))
-        .toList();
-  }
-
-  List<CollectionItem> playlistItemList() {
-    final PlaylistController playlistController = Get.put(PlaylistController());
-
-    return playlistController.playlist
-        .map((value) => CollectionItemList.playlist(value))
-        .toList();
   }
 
   CollectionItem favoritesMusicItem() {

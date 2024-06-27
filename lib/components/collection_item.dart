@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:musiku/constants/color.dart';
+import 'package:musiku/controller.dart';
 import 'package:musiku/model.dart' as model;
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -97,5 +99,21 @@ class CollectionItemList {
       onTap: () {},
       iconPath: "assets/icons/playlist.svg",
     );
+  }
+
+  static List<CollectionItem> artistItemList() {
+    final ArtistController artistController = Get.put(ArtistController());
+
+    return artistController.artist
+        .map((value) => CollectionItemList.artist(value))
+        .toList();
+  }
+
+  static List<CollectionItem> playlistItemList() {
+    final PlaylistController playlistController = Get.put(PlaylistController());
+
+    return playlistController.playlist
+        .map((value) => CollectionItemList.playlist(value))
+        .toList();
   }
 }
