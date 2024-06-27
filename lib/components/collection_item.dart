@@ -34,7 +34,7 @@ class CollectionItem extends StatelessWidget {
                       ColorConstants.modalBackgroundColor,
                     ])),
             child: InkWell(
-              borderRadius: BorderRadius.circular(5),
+              borderRadius: BorderRadius.circular(borderRadius ?? 5),
               onTap: onTap,
               child: Center(
                 child: SvgPicture.asset(
