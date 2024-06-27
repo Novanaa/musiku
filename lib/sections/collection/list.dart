@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:musiku/constants/color.dart';
+import 'package:musiku/screens/favorites.dart';
 
 class CollectionList extends StatelessWidget {
   const CollectionList({super.key});
@@ -23,8 +25,8 @@ class CollectionList extends StatelessWidget {
   InkWell favoritesMusicItem() {
     return InkWell(
       borderRadius: BorderRadius.circular(5),
-      // TODO: Implement view favorites music feature
-      onTap: () {},
+      onTap: () => Get.to(() => const FavoritesMusicScreen(),
+          transition: Transition.cupertino),
       child: Container(
         height: 200,
         width: 200,
