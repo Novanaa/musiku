@@ -18,12 +18,12 @@ void openMusicPlayer(BuildContext context) {
       context: context,
       backgroundColor: Colors.transparent,
       barrierColor: Colors.transparent,
-      builder: (context) => MusicPlayerDrawer(),
+      builder: (context) => const MusicPlayerDrawer(),
       isScrollControlled: true);
 }
 
 class MusicPlayerDrawer extends StatefulWidget {
-  MusicPlayerDrawer({super.key});
+  const MusicPlayerDrawer({super.key});
 
   @override
   State<MusicPlayerDrawer> createState() => _MusicPlayerDrawerState();

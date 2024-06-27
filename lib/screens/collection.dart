@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:musiku/components/placeholder.dart';
 import 'package:musiku/constants/color.dart';
 import 'package:musiku/sections/collection/header.dart';
+import 'package:musiku/sections/collection/list.dart';
 
 class CollectionScreen extends StatelessWidget {
   const CollectionScreen({super.key});
@@ -12,7 +13,7 @@ class CollectionScreen extends StatelessWidget {
     return Theme(
       data: Theme.of(context).copyWith(splashColor: ColorConstants.splashColor),
       child: const Scaffold(
-        body: Center(child: Text("collection")),
+        body: CollectionList(),
         appBar: CollectionHeader(),
       ),
     );
