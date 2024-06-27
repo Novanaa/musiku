@@ -65,7 +65,7 @@ class CollectionList extends StatelessWidget {
 
   CollectionItem artistItem(ArtistModel artist) {
     return CollectionItem(
-      title: artist.artist,
+      title: artist.artist == "<unknown>" ? "Unkown artist" : artist.artist,
       borderRadius: 1000,
       description: "Artist",
       // TODO: Implement view single artist feature
