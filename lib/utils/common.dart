@@ -66,5 +66,8 @@ void openUrl(String url) async {
 bool isMusicFavorited(SongModel music) {
   final FavoritesMusicController favoritesMusicController =
       Get.put(FavoritesMusicController());
-  return favoritesMusicController.favoritesMusic.contains(music);
+  return favoritesMusicController.favoritesMusic
+      .where((value) => value.data == music.data)
+      .toList()
+      .isNotEmpty;
 }
