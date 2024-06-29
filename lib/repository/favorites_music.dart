@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,7 +19,7 @@ class FavoritesMusicRepository {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     List<SongModel> favoritesMusicState = await getFavoritesMusicState();
 
-    favoritesMusicState.assign(song);
+    favoritesMusicState.add(song);
     preferences.setString(favoritesMusicKey,
         jsonEncode(favoritesMusicState.map((value) => value.getMap).toList()));
   }
