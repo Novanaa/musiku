@@ -82,3 +82,5 @@ String getRandomString(int length) {
   return String.fromCharCodes(Iterable.generate(
       length, (_) => chars.codeUnitAt(rnd.nextInt(chars.length))));
 }
+
+String generatePlaylistId() => getRandomString(5);
