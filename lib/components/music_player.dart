@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:musiku/components/add_song_playlist.dart';
 import 'package:musiku/constants/color.dart';
 import 'package:musiku/controller.dart';
 import 'package:musiku/sections/home/bottom_sheet.dart';
@@ -251,8 +252,7 @@ class _MusicPlayerDrawerState extends State<MusicPlayerDrawer> {
             ],
           ),
           GestureDetector(
-            // TODO: Implement add to playlist feature
-            onTap: null,
+            onTap: () => openAddSongPlaylistDrawer(context),
             child: SvgPicture.asset(
               "assets/icons/list-options.svg",
             ),

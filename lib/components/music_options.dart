@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:musiku/components/add_song_playlist.dart';
 import 'package:musiku/constants/color.dart';
 import 'package:musiku/utils/actions.dart';
 import 'package:musiku/utils/common.dart';
@@ -56,8 +57,7 @@ class MusicOptions extends StatelessWidget {
           ),
           InkWell(
             borderRadius: BorderRadius.circular(10),
-            // TODO: Implement add to playlist feature
-            onTap: () {},
+            onTap: () => openAddSongPlaylistDrawer(context),
             child: Padding(
               padding: const EdgeInsets.only(
                   top: 12, bottom: 12, left: 10, right: 10),
