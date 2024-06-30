@@ -41,13 +41,13 @@ class PlaylistRepository {
   }
 
   static void addPlaylistSongs(
-      String playlistId, List<query_model.SongModel> songs) async {
+      String playlistId, query_model.SongModel song) async {
     SharedPreferences prefrences = await SharedPreferences.getInstance();
     List<PlaylistModel> playlists = await getPlaylistState();
     int playlistIndex = playlists.indexWhere((value) => value.id == playlistId);
 
     PlaylistModel playlist = playlists[playlistIndex];
-    playlist.songs.addAll(songs);
+    playlist.songs.add(song);
     playlists[playlistIndex] = playlist;
 
     prefrences.setString(playlistKey,

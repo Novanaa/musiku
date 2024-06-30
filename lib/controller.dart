@@ -206,12 +206,12 @@ class PlaylistController extends GetxController {
     update();
   }
 
-  void addPlaylistSongs(String playlistId, List<SongModel> songs) {
-    PlaylistRepository.addPlaylistSongs(playlistId, songs);
+  void addPlaylistSongs(String playlistId, SongModel song) {
+    PlaylistRepository.addPlaylistSongs(playlistId, song);
     int playlistIndex = playlist.indexWhere((value) => value.id == playlistId);
 
     model.PlaylistModel singlePlaylist = playlist[playlistIndex];
-    singlePlaylist.songs.addAll(songs);
+    singlePlaylist.songs.add(song);
     playlist[playlistIndex] = singlePlaylist;
     update();
   }
