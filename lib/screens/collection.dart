@@ -123,10 +123,19 @@ class _CollectionSearchScreenState extends State<CollectionSearchScreen> {
   }
 }
 
-class AddPlaylistSongsScreen extends StatelessWidget {
-  AddPlaylistSongsScreen({super.key});
+class AddPlaylistSongsScreen extends StatefulWidget {
+  const AddPlaylistSongsScreen({super.key});
+
+  @override
+  State<AddPlaylistSongsScreen> createState() => _AddPlaylistSongsScreenState();
+}
+
+class _AddPlaylistSongsScreenState extends State<AddPlaylistSongsScreen> {
+  bool dummyState = false;
 
   final MusicController musicController = Get.put(MusicController());
+
+  model.PlaylistModel playlist = Get.arguments["playlist"];
 
   @override
   Widget build(BuildContext context) {
@@ -157,10 +166,17 @@ class AddPlaylistSongsScreen extends StatelessWidget {
             )),
       );
 
-  GestureDetector addPlaylistSong(SongModel song, BuildContext context) =>
-      GestureDetector(
-        // TODO: Implement add playlist songs feature
-        onTap: () {},
+  Opacity addPlaylistSong(SongModel song, BuildContext context) {
+    bool isMusicSavedToPlaylist = isMusicAddedToPlaylist(playlist, song);
+
+    return Opacity(
+      opacity: isMusicSavedToPlaylist ? 0.6 : 1,
+      child: GestureDetector(
+        onTap: isMusicSavedToPlaylist
+            ? null
+            : () {
+                handleAddPlaylistSong(song);
+              },
         child: Container(
           margin:
               const EdgeInsets.only(top: 11, bottom: 11, left: 15, right: 15),
@@ -189,13 +205,29 @@ class AddPlaylistSongsScreen extends StatelessWidget {
                 ],
               ),
             ),
-            GestureDetector(
-              // TODO: Implement add playlist songs feature
-              onTap: () {},
-              child: SvgPicture.asset("assets/icons/plus.svg",
-                  height: 23, width: 23),
-            )
+            !isMusicSavedToPlaylist
+                ? GestureDetector(
+                    onTap: () {
+                      handleAddPlaylistSong(song);
+                    },
+                    child: SvgPicture.asset("assets/icons/plus.svg",
+                        height: 20, width: 20),
+                  )
+                : GestureDetector(
+                    onTap: null,
+                    child: SvgPicture.asset("assets/icons/checklist.svg",
+                        height: 20, width: 20),
+                  )
           ]),
         ),
-      );
+      ),
+    );
+  }
+
+  void handleAddPlaylistSong(SongModel song) {
+    final PlaylistController playlistController = Get.put(PlaylistController());
+
+    playlistController.addPlaylistSongs(playlist.id, song);
+    setState(() => dummyState = !dummyState);
+  }
 }

@@ -14,7 +14,7 @@ class PlaylistRepository {
 
     return List<PlaylistModel>.from(jsonMap.map(
       (value) => PlaylistModel.fromJson(value),
-    ));
+    )).toList();
   }
 
   static void setPlaylistState(PlaylistModel state) async {
@@ -41,13 +41,14 @@ class PlaylistRepository {
   }
 
   static void addPlaylistSongs(
-      String playlistId, List<query_model.SongModel> songs) async {
+      String playlistId, query_model.SongModel song) async {
     SharedPreferences prefrences = await SharedPreferences.getInstance();
     List<PlaylistModel> playlists = await getPlaylistState();
     int playlistIndex = playlists.indexWhere((value) => value.id == playlistId);
 
     PlaylistModel playlist = playlists[playlistIndex];
-    playlist.songs.addAll(songs);
+    playlist.songs.add(song);
+    playlist.totalSongs += 1;
     playlists[playlistIndex] = playlist;
 
     prefrences.setString(playlistKey,

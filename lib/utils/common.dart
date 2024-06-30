@@ -9,6 +9,7 @@ import 'package:musiku/controller.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:musiku/model.dart' as model;
 
 String? getMusicMetadata(SongModel? song) {
   if (song == null) return null;
@@ -84,3 +85,9 @@ String getRandomString(int length) {
 }
 
 String generatePlaylistId() => getRandomString(5);
+
+bool isMusicAddedToPlaylist(model.PlaylistModel playlist, SongModel music) =>
+    playlist.songs
+        .where((value) => value.data == music.data)
+        .toList()
+        .isNotEmpty;

@@ -85,7 +85,9 @@ class PlaylistModel {
 
   factory PlaylistModel.fromJson(Map<String, dynamic> json) => PlaylistModel(
       id: json['id'],
-      songs: List<SongModel>.from(json['songs']),
+      songs: (json['songs'] as List<dynamic>)
+          .map((value) => SongModel(value))
+          .toList(),
       title: json['title'],
       totalSongs: json['totalSongs']);
 
