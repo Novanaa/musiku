@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:musiku/components/add_playlist.dart';
 import 'package:musiku/constants/color.dart';
 import 'package:musiku/controller.dart';
 import 'package:musiku/model.dart' as model;
+import 'package:musiku/screens/favorites.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class CollectionItem extends StatelessWidget {
@@ -115,5 +117,23 @@ class CollectionItemList {
     return playlistController.playlist
         .map((value) => CollectionItemList.playlist(value))
         .toList();
+  }
+
+  static CollectionItem favoritesMusicItem() {
+    return CollectionItem(
+      title: "Favorites",
+      description: "Collection",
+      onTap: () => Get.to(() => const FavoritesMusicScreen(),
+          transition: Transition.cupertino),
+      iconPath: "assets/icons/heart.svg",
+    );
+  }
+
+  static CollectionItem addPlaylistItem(BuildContext context) {
+    return CollectionItem(
+      title: "Add Playlist",
+      onTap: () => openAddPlaylistDrawer(context),
+      iconPath: "assets/icons/plus.svg",
+    );
   }
 }
