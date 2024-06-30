@@ -72,11 +72,9 @@ class AddPlaylistDrawer extends StatelessWidget {
         children: [
           Expanded(
               child: ElevatedButton(
-                  // TODO: Implement add playlist feature
-                  onPressed: () {},
-                  style: const ButtonStyle(enableFeedback: true),
+                  onPressed: () => Get.back(),
                   child: const Text(
-                    "Save",
+                    "Cancel",
                     style: TextStyle(
                         color: ColorConstants.backgroundColor,
                         fontWeight: FontWeight.w500),
@@ -84,9 +82,11 @@ class AddPlaylistDrawer extends StatelessWidget {
           const SizedBox(width: 10),
           Expanded(
               child: ElevatedButton(
-                  onPressed: () => Get.back(),
+                  // TODO: Implement add playlist feature
+                  onPressed: () {},
+                  style: const ButtonStyle(enableFeedback: true),
                   child: const Text(
-                    "Cancel",
+                    "Save",
                     style: TextStyle(
                         color: ColorConstants.backgroundColor,
                         fontWeight: FontWeight.w500),
