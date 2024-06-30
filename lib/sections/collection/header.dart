@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:musiku/components/add_playlist.dart';
 import 'package:musiku/constants/color.dart';
 import 'package:musiku/screens/collection.dart';
 
@@ -31,8 +32,7 @@ class CollectionHeader extends StatelessWidget implements PreferredSizeWidget {
         ),
         IconButton(
           icon: SvgPicture.asset("assets/icons/plus.svg"),
-          // TODO: Implement add user collection drawer
-          onPressed: () {},
+          onPressed: () => openAddPlaylistDrawer(context),
         )
       ],
     );
