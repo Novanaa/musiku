@@ -252,7 +252,10 @@ class _MusicPlayerDrawerState extends State<MusicPlayerDrawer> {
             ],
           ),
           GestureDetector(
-            onTap: () => openAddSongPlaylistDrawer(context),
+            onTap: () => openAddSongPlaylistDrawer(
+                context,
+                currentMusicPlayedController.currentMusicPlayed.value?.music
+                    as SongModel),
             child: SvgPicture.asset(
               "assets/icons/list-options.svg",
             ),

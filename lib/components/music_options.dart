@@ -57,7 +57,7 @@ class MusicOptions extends StatelessWidget {
           ),
           InkWell(
             borderRadius: BorderRadius.circular(10),
-            onTap: () => openAddSongPlaylistDrawer(context),
+            onTap: () => openAddSongPlaylistDrawer(context, music),
             child: Padding(
               padding: const EdgeInsets.only(
                   top: 12, bottom: 12, left: 10, right: 10),
