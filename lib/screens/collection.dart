@@ -8,6 +8,7 @@ import 'package:musiku/controller.dart';
 import 'package:musiku/model.dart' as model;
 import 'package:musiku/sections/collection/header.dart';
 import 'package:musiku/sections/collection/list.dart';
+import 'package:musiku/utils/common.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class CollectionScreen extends StatelessWidget {
@@ -120,4 +121,81 @@ class _CollectionSearchScreenState extends State<CollectionSearchScreen> {
       ),
     );
   }
+}
+
+class AddPlaylistSongsScreen extends StatelessWidget {
+  AddPlaylistSongsScreen({super.key});
+
+  final MusicController musicController = Get.put(MusicController());
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: addPlaylistSongsAppBar(),
+      body: addPlaylistSongsList(),
+    );
+  }
+
+  AppBar addPlaylistSongsAppBar() => AppBar(
+        backgroundColor: ColorConstants.headerBackgroundColor,
+        foregroundColor: ColorConstants.textColor,
+        title: const Text(
+          "Add Songs",
+          style: TextStyle(
+              color: ColorConstants.textColor,
+              fontWeight: FontWeight.w600,
+              fontSize: 18),
+        ),
+      );
+
+  Container addPlaylistSongsList() => Container(
+        padding: const EdgeInsets.only(top: 10, bottom: 10),
+        child: Obx(() => ListView.builder(
+              itemCount: musicController.music.length,
+              itemBuilder: (BuildContext context, int index) =>
+                  addPlaylistSong(musicController.music[index], context),
+            )),
+      );
+
+  GestureDetector addPlaylistSong(SongModel song, BuildContext context) =>
+      GestureDetector(
+        // TODO: Implement add playlist songs feature
+        onTap: () {},
+        child: Container(
+          margin:
+              const EdgeInsets.only(top: 11, bottom: 11, left: 15, right: 15),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.70,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(song.displayName,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w500, fontSize: 15)),
+                  const SizedBox(height: 4),
+                  Opacity(
+                      opacity: 0.8,
+                      child: Text(
+                        getMusicMetadata(song) ??
+                            "Unknown albums - Unkown artist",
+                        style: const TextStyle(fontSize: 11.5),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ))
+                ],
+              ),
+            ),
+            GestureDetector(
+              // TODO: Implement add playlist songs feature
+              onTap: () {},
+              child: SvgPicture.asset("assets/icons/plus.svg",
+                  height: 23, width: 23),
+            )
+          ]),
+        ),
+      );
 }
