@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:musiku/components/add_playlist.dart';
 import 'package:musiku/components/collection_item.dart';
 import 'package:musiku/screens/favorites.dart';
 
@@ -20,7 +21,7 @@ class CollectionList extends StatelessWidget {
           favoritesMusicItem(),
           ...CollectionItemList.playlistItemList(),
           ...CollectionItemList.artistItemList(),
-          addPlaylistItem()
+          addPlaylistItem(context)
         ],
       ),
     );
@@ -36,11 +37,10 @@ class CollectionList extends StatelessWidget {
     );
   }
 
-  CollectionItem addPlaylistItem() {
+  CollectionItem addPlaylistItem(BuildContext context) {
     return CollectionItem(
       title: "Add Playlist",
-      // TODO: Implement add playlist feature
-      onTap: () {},
+      onTap: () => openAddPlaylistDrawer(context),
       iconPath: "assets/icons/plus.svg",
     );
   }
