@@ -212,6 +212,7 @@ class PlaylistController extends GetxController {
 
     model.PlaylistModel singlePlaylist = playlist[playlistIndex];
     singlePlaylist.songs.add(song);
+    singlePlaylist.totalSongs += 1;
     playlist[playlistIndex] = singlePlaylist;
     update();
   }

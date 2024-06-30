@@ -14,7 +14,7 @@ class PlaylistRepository {
 
     return List<PlaylistModel>.from(jsonMap.map(
       (value) => PlaylistModel.fromJson(value),
-    ));
+    )).toList();
   }
 
   static void setPlaylistState(PlaylistModel state) async {
@@ -48,6 +48,7 @@ class PlaylistRepository {
 
     PlaylistModel playlist = playlists[playlistIndex];
     playlist.songs.add(song);
+    playlist.totalSongs += 1;
     playlists[playlistIndex] = playlist;
 
     prefrences.setString(playlistKey,
