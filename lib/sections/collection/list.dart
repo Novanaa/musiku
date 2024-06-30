@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:musiku/components/add_playlist.dart';
 import 'package:musiku/components/collection_item.dart';
-import 'package:musiku/screens/favorites.dart';
 
 class CollectionList extends StatelessWidget {
   const CollectionList({super.key});
@@ -19,31 +17,13 @@ class CollectionList extends StatelessWidget {
           crossAxisSpacing: 15,
           childAspectRatio: 1 / 1.4,
           children: [
-            favoritesMusicItem(),
+            CollectionItemList.favoritesMusicItem(),
             ...CollectionItemList.playlistItemList(),
             ...CollectionItemList.artistItemList(),
-            addPlaylistItem(context)
+            CollectionItemList.addPlaylistItem(context)
           ],
         ),
       ),
-    );
-  }
-
-  CollectionItem favoritesMusicItem() {
-    return CollectionItem(
-      title: "Favorites",
-      description: "Collection",
-      onTap: () => Get.to(() => const FavoritesMusicScreen(),
-          transition: Transition.cupertino),
-      iconPath: "assets/icons/heart.svg",
-    );
-  }
-
-  CollectionItem addPlaylistItem(BuildContext context) {
-    return CollectionItem(
-      title: "Add Playlist",
-      onTap: () => openAddPlaylistDrawer(context),
-      iconPath: "assets/icons/plus.svg",
     );
   }
 }
