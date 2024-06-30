@@ -40,7 +40,7 @@ void addPlaylist(String playlistTitle) {
 
   model.PlaylistModel newPlaylist = model.PlaylistModel(
       id: generatePlaylistId(), title: playlistTitle, totalSongs: 0, songs: []);
-  Get.to(AddPlaylistSongsScreen(),
+  Get.to(() => const AddPlaylistSongsScreen(),
       transition: Transition.cupertino, arguments: {'playlist': newPlaylist});
   showToast("Successfully added playlist.");
   playlistController.setPlaylistState(newPlaylist);
