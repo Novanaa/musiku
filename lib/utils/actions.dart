@@ -39,10 +39,27 @@ void addPlaylist(String playlistTitle) {
   }
 
   Get.to(AddPlaylistSongsScreen(), transition: Transition.cupertino);
-  showToast("Sucessfully added playlist.");
+  showToast("Successfully added playlist.");
   playlistController.setPlaylistState(model.PlaylistModel(
       id: generatePlaylistId(),
       title: playlistTitle,
       totalSongs: 0,
       songs: []));
+}
+
+void addPlaylistSong(String playlistId, SongModel song) {
+  final PlaylistController playlistController = Get.put(PlaylistController());
+  int playlistIndex =
+      playlistController.playlist.indexWhere((value) => value.id == playlistId);
+  model.PlaylistModel playlist = playlistController.playlist[playlistIndex];
+
+  if (isMusicAddedToPlaylist(playlist, song)) {
+    showToast("Music already added.");
+    Get.back();
+    return;
+  }
+
+  showToast("Successfully saved to playlist");
+  Get.back();
+  playlistController.addPlaylistSongs(playlistId, song);
 }
