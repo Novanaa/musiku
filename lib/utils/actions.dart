@@ -38,13 +38,12 @@ void addPlaylist(String playlistTitle) {
     return;
   }
 
-  Get.to(AddPlaylistSongsScreen(), transition: Transition.cupertino);
+  model.PlaylistModel newPlaylist = model.PlaylistModel(
+      id: generatePlaylistId(), title: playlistTitle, totalSongs: 0, songs: []);
+  Get.to(AddPlaylistSongsScreen(),
+      transition: Transition.cupertino, arguments: {'playlist': newPlaylist});
   showToast("Successfully added playlist.");
-  playlistController.setPlaylistState(model.PlaylistModel(
-      id: generatePlaylistId(),
-      title: playlistTitle,
-      totalSongs: 0,
-      songs: []));
+  playlistController.setPlaylistState(newPlaylist);
 }
 
 void addPlaylistSong(String playlistId, SongModel song) {
