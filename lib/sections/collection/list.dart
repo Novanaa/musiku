@@ -12,17 +12,19 @@ class CollectionList extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(15),
       padding: const EdgeInsets.only(bottom: 40),
-      child: GridView.count(
-        crossAxisCount: 3,
-        mainAxisSpacing: 35,
-        crossAxisSpacing: 15,
-        childAspectRatio: 1 / 1.4,
-        children: [
-          favoritesMusicItem(),
-          ...CollectionItemList.playlistItemList(),
-          ...CollectionItemList.artistItemList(),
-          addPlaylistItem(context)
-        ],
+      child: Obx(
+        () => GridView.count(
+          crossAxisCount: 3,
+          mainAxisSpacing: 35,
+          crossAxisSpacing: 15,
+          childAspectRatio: 1 / 1.4,
+          children: [
+            favoritesMusicItem(),
+            ...CollectionItemList.playlistItemList(),
+            ...CollectionItemList.artistItemList(),
+            addPlaylistItem(context)
+          ],
+        ),
       ),
     );
   }

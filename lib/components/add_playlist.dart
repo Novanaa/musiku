@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:musiku/constants/color.dart';
+import 'package:musiku/utils/actions.dart';
 
 void openAddPlaylistDrawer(BuildContext context) {
   showModalBottomSheet(
@@ -11,8 +12,15 @@ void openAddPlaylistDrawer(BuildContext context) {
       backgroundColor: ColorConstants.modalBackgroundColor);
 }
 
-class AddPlaylistDrawer extends StatelessWidget {
+class AddPlaylistDrawer extends StatefulWidget {
   const AddPlaylistDrawer({super.key});
+
+  @override
+  State<AddPlaylistDrawer> createState() => _AddPlaylistDrawerState();
+}
+
+class _AddPlaylistDrawerState extends State<AddPlaylistDrawer> {
+  String keyword = "";
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +45,7 @@ class AddPlaylistDrawer extends StatelessWidget {
     return Container(
         margin: const EdgeInsets.only(top: 10),
         child: TextField(
-          onChanged: (text) {},
+          onChanged: (text) => setState(() => keyword = text),
           style: const TextStyle(
               color: ColorConstants.textColor,
               fontWeight: FontWeight.w500,
@@ -82,8 +90,10 @@ class AddPlaylistDrawer extends StatelessWidget {
           const SizedBox(width: 10),
           Expanded(
               child: ElevatedButton(
-                  // TODO: Implement add playlist feature
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.back();
+                    addPlaylist(keyword);
+                  },
                   style: const ButtonStyle(enableFeedback: true),
                   child: const Text(
                     "Save",
