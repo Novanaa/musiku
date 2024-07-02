@@ -70,3 +70,11 @@ void removePlaylist(String playlistId) {
   playlistController.deletePlaylistState(playlistId);
   Get.back();
 }
+
+void editPlaylistName(String playlistId, String newPlaylistName) {
+  final PlaylistController playlistController = Get.put(PlaylistController());
+
+  showToast("Successfully edited playlist name.");
+  playlistController.editPlaylistName(playlistId, newPlaylistName);
+  Get.back();
+}
