@@ -223,6 +223,19 @@ class PlaylistController extends GetxController {
     int playlistIndex = playlist.indexWhere((value) => value.id == playlistId);
     model.PlaylistModel singlePlaylist = playlist[playlistIndex];
     singlePlaylist.title = newPlaylistName;
+    playlist[playlistIndex] = singlePlaylist;
+
+    update();
+  }
+
+  void removeMusicFromPlaylist(String playlistId, SongModel music) {
+    PlaylistRepository.removeMusicFromPlaylist(playlistId, music);
+
+    int playlistIndex = playlist.indexWhere((value) => value.id == playlistId);
+    model.PlaylistModel singlePlaylist = playlist[playlistIndex];
+    singlePlaylist.songs.removeWhere((value) => value.data == music.data);
+    playlist[playlistIndex] = singlePlaylist;
+
     update();
   }
 }
