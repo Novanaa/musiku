@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:musiku/components/collection_item.dart';
+import 'package:musiku/components/music.dart';
 import 'package:musiku/components/placeholder.dart';
 import 'package:musiku/constants/color.dart';
 import 'package:musiku/controller.dart';
@@ -229,5 +230,118 @@ class _AddPlaylistSongsScreenState extends State<AddPlaylistSongsScreen> {
 
     playlistController.addPlaylistSongs(playlist.id, song);
     setState(() => dummyState = !dummyState);
+  }
+}
+
+// ignore: must_be_immutable
+class ArtistScreen extends StatelessWidget {
+  ArtistScreen({super.key});
+
+  ArtistModel artist = Get.arguments["artist"];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: artistScreenAppBar(),
+      body: Column(
+        children: [
+          Stack(
+            children: [
+              artistScreenBanner(),
+              artistMetadata(),
+            ],
+          ),
+          musicList()
+        ],
+      ),
+    );
+  }
+
+  AppBar artistScreenAppBar() => AppBar(
+        foregroundColor: ColorConstants.textColor,
+        backgroundColor: ColorConstants.inputColor,
+      );
+
+  Positioned artistScreenBanner() => Positioned(
+        child: ShaderMask(
+          shaderCallback: (rect) {
+            return const LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                ColorConstants.inputColor,
+                ColorConstants.inputColor,
+                Colors.transparent
+              ],
+            ).createShader(rect);
+          },
+          blendMode: BlendMode.dstIn,
+          child: Container(
+            decoration: const BoxDecoration(color: ColorConstants.inputColor),
+            height: 120,
+          ),
+        ),
+      );
+
+  Container artistMetadata() => Container(
+        padding: const EdgeInsets.all(15),
+        margin: const EdgeInsets.only(top: 20),
+        child: Row(
+          children: [
+            Container(
+              height: 100,
+              width: 100,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(1000),
+                  gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Color.fromARGB(255, 55, 55, 55),
+                        ColorConstants.modalBackgroundColor,
+                      ])),
+              child: Center(
+                child: SvgPicture.asset(
+                  "assets/icons/artist.svg",
+                  width: 30,
+                  height: 30,
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  artist.artist == "<unknown>"
+                      ? "Unkown artist"
+                      : artist.artist,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w600, fontSize: 18),
+                ),
+                const Opacity(opacity: 0.8, child: Text("Arist"))
+              ],
+            )
+          ],
+        ),
+      );
+
+  Expanded musicList() {
+    final MusicController musicController = Get.put(MusicController());
+    List<SongModel> artistMusicList = musicController.music
+        .where((value) => value.artistId == artist.id)
+        .toList();
+
+    return Expanded(
+      child: ListView.builder(
+        padding: const EdgeInsets.only(bottom: 20),
+        itemBuilder: (context, index) => Music(song: artistMusicList[index]),
+        itemCount: artistMusicList.length,
+      ),
+    );
   }
 }
