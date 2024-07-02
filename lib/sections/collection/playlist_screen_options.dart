@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:musiku/constants/color.dart';
 import 'package:musiku/model.dart';
 import 'package:musiku/screens/collection.dart';
+import 'package:musiku/sections/collection/edit_playlist.dart';
 import 'package:musiku/utils/actions.dart';
 
 void openPlaylistScreenOptions(BuildContext context, PlaylistModel playlist) {
@@ -54,8 +55,7 @@ class PlaylistScreenOptionsDrawer extends StatelessWidget {
           ),
           InkWell(
             borderRadius: BorderRadius.circular(10),
-            // TODO: Implement edit playlist name feature
-            onTap: () {},
+            onTap: () => openEditPlaylistNameDrawer(context, playlist),
             child: Padding(
               padding: const EdgeInsets.only(
                   top: 12, bottom: 12, left: 10, right: 10),
