@@ -372,12 +372,15 @@ class PlaylistScreen extends StatelessWidget {
     );
   }
 
-  AppBar playlistScreenAppBar(BuildContext context) => AppBar(
+  AppBar playlistScreenAppBar(
+    BuildContext context,
+  ) =>
+      AppBar(
         foregroundColor: ColorConstants.textColor,
         backgroundColor: ColorConstants.inputColor,
         actions: [
           IconButton(
-              onPressed: () => openPlaylistScreenOptions(context),
+              onPressed: () => openPlaylistScreenOptions(context, playlist),
               icon: SvgPicture.asset("assets/icons/music-options.svg"))
         ],
       );
@@ -452,8 +455,10 @@ class PlaylistScreen extends StatelessWidget {
     return Expanded(
       child: ListView.builder(
         padding: const EdgeInsets.only(bottom: 20),
-        itemBuilder: (context, index) =>
-            PlaylistMusic(song: playlist.songs[index]),
+        itemBuilder: (context, index) => PlaylistMusic(
+          song: playlist.songs[index],
+          playlist: playlist,
+        ),
         itemCount: playlist.songs.length,
       ),
     );
