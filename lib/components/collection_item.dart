@@ -5,6 +5,7 @@ import 'package:musiku/components/add_playlist.dart';
 import 'package:musiku/constants/color.dart';
 import 'package:musiku/controller.dart';
 import 'package:musiku/model.dart' as model;
+import 'package:musiku/screens/collection.dart';
 import 'package:musiku/screens/favorites.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -45,8 +46,8 @@ class CollectionItem extends StatelessWidget {
               child: Center(
                 child: SvgPicture.asset(
                   iconPath,
-                  width: 35,
-                  height: 35,
+                  width: 30,
+                  height: 30,
                 ),
               ),
             ),
@@ -87,8 +88,8 @@ class CollectionItemList {
       title: artist.artist == "<unknown>" ? "Unkown artist" : artist.artist,
       borderRadius: 1000,
       description: "Artist",
-      // TODO: Implement view single artist feature
-      onTap: () {},
+      onTap: () => Get.to(() => ArtistScreen(),
+          transition: Transition.cupertino, arguments: {'artist': artist}),
       iconPath: "assets/icons/artist.svg",
     );
   }
