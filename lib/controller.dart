@@ -216,6 +216,15 @@ class PlaylistController extends GetxController {
     playlist[playlistIndex] = singlePlaylist;
     update();
   }
+
+  void editPlaylistName(String playlistId, String newPlaylistName) {
+    PlaylistRepository.editPlaylistName(playlistId, newPlaylistName);
+
+    int playlistIndex = playlist.indexWhere((value) => value.id == playlistId);
+    model.PlaylistModel singlePlaylist = playlist[playlistIndex];
+    singlePlaylist.title = newPlaylistName;
+    update();
+  }
 }
 
 class FavoritesMusicController extends GetxController {
