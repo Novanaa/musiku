@@ -78,3 +78,11 @@ void editPlaylistName(String playlistId, String newPlaylistName) {
   playlistController.editPlaylistName(playlistId, newPlaylistName);
   Get.back();
 }
+
+void removeMusicFromPlaylist(String playlistId, SongModel music) {
+  final PlaylistController playlistController = Get.put(PlaylistController());
+
+  showToast("Successfully removed from playlist");
+  playlistController.removeMusicFromPlaylist(playlistId, music);
+  Get.back();
+}

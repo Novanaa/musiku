@@ -68,4 +68,18 @@ class PlaylistRepository {
     prefrences.setString(playlistKey,
         jsonEncode(playlists.map((value) => value.toJson()).toList()));
   }
+
+  static void removeMusicFromPlaylist(
+      String playlistId, query_model.SongModel music) async {
+    SharedPreferences prefrences = await SharedPreferences.getInstance();
+    List<PlaylistModel> playlists = await getPlaylistState();
+    int playlistIndex = playlists.indexWhere((value) => value.id == playlistId);
+
+    PlaylistModel playlist = playlists[playlistIndex];
+    playlist.songs.removeWhere((value) => value.data == music.data);
+    playlists[playlistIndex] = playlist;
+
+    prefrences.setString(playlistKey,
+        jsonEncode(playlists.map((value) => value.toJson()).toList()));
+  }
 }
