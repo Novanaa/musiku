@@ -10,6 +10,7 @@ import 'package:musiku/model.dart' as model;
 import 'package:musiku/sections/collection/header.dart';
 import 'package:musiku/sections/collection/list.dart';
 import 'package:musiku/sections/collection/playlist_music.dart';
+import 'package:musiku/sections/collection/playlist_screen_options.dart';
 import 'package:musiku/utils/common.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -356,7 +357,7 @@ class PlaylistScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: playlistScreenAppBar(),
+      appBar: playlistScreenAppBar(context),
       body: Column(
         children: [
           Stack(
@@ -371,12 +372,12 @@ class PlaylistScreen extends StatelessWidget {
     );
   }
 
-  AppBar playlistScreenAppBar() => AppBar(
+  AppBar playlistScreenAppBar(BuildContext context) => AppBar(
         foregroundColor: ColorConstants.textColor,
         backgroundColor: ColorConstants.inputColor,
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () => openPlaylistScreenOptions(context),
               icon: SvgPicture.asset("assets/icons/music-options.svg"))
         ],
       );
