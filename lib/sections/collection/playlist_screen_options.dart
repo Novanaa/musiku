@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:musiku/constants/color.dart';
+import 'package:musiku/model.dart';
+import 'package:musiku/utils/actions.dart';
 
-void openPlaylistScreenOptions(BuildContext context) {
+void openPlaylistScreenOptions(BuildContext context, PlaylistModel playlist) {
   showModalBottomSheet(
       context: context,
-      builder: (context) => const PlaylistScreenOptionsDrawer(),
+      builder: (context) => PlaylistScreenOptionsDrawer(playlist: playlist),
       isScrollControlled: true,
       backgroundColor: ColorConstants.modalBackgroundColor);
 }
 
 class PlaylistScreenOptionsDrawer extends StatelessWidget {
-  const PlaylistScreenOptionsDrawer({super.key});
+  const PlaylistScreenOptionsDrawer({super.key, required this.playlist});
+  final PlaylistModel playlist;
 
   @override
   Widget build(BuildContext context) {
@@ -76,8 +80,10 @@ class PlaylistScreenOptionsDrawer extends StatelessWidget {
           ),
           InkWell(
             borderRadius: BorderRadius.circular(10),
-            // TODO: Implement remove playlist feature
-            onTap: () {},
+            onTap: () {
+              removePlaylist(playlist.id);
+              Get.back();
+            },
             child: Padding(
               padding: const EdgeInsets.only(
                   top: 12, bottom: 12, left: 10, right: 10),
