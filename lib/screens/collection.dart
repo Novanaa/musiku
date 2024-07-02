@@ -345,3 +345,114 @@ class ArtistScreen extends StatelessWidget {
     );
   }
 }
+
+// ignore: must_be_immutable
+class PlaylistScreen extends StatelessWidget {
+  PlaylistScreen({super.key});
+
+  model.PlaylistModel playlist = Get.arguments["playlist"];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: playlistScreenAppBar(),
+      body: Column(
+        children: [
+          Stack(
+            children: [
+              playlistScreenBanner(),
+              playlistMetadata(),
+            ],
+          ),
+          playlistMusicList()
+        ],
+      ),
+    );
+  }
+
+  AppBar playlistScreenAppBar() => AppBar(
+        foregroundColor: ColorConstants.textColor,
+        backgroundColor: ColorConstants.inputColor,
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: SvgPicture.asset("assets/icons/music-options.svg"))
+        ],
+      );
+
+  Positioned playlistScreenBanner() => Positioned(
+        child: ShaderMask(
+          shaderCallback: (rect) {
+            return const LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                ColorConstants.inputColor,
+                ColorConstants.inputColor,
+                Colors.transparent
+              ],
+            ).createShader(rect);
+          },
+          blendMode: BlendMode.dstIn,
+          child: Container(
+            decoration: const BoxDecoration(color: ColorConstants.inputColor),
+            height: 120,
+          ),
+        ),
+      );
+
+  Container playlistMetadata() => Container(
+        padding: const EdgeInsets.all(15),
+        margin: const EdgeInsets.only(top: 20),
+        child: Row(
+          children: [
+            Container(
+              height: 100,
+              width: 100,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Color.fromARGB(255, 55, 55, 55),
+                        ColorConstants.modalBackgroundColor,
+                      ])),
+              child: Center(
+                child: SvgPicture.asset(
+                  "assets/icons/playlist.svg",
+                  width: 30,
+                  height: 30,
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  playlist.title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w600, fontSize: 18),
+                ),
+                const Opacity(opacity: 0.8, child: Text("Playlist"))
+              ],
+            )
+          ],
+        ),
+      );
+
+  Expanded playlistMusicList() {
+    return Expanded(
+      child: ListView.builder(
+        padding: const EdgeInsets.only(bottom: 20),
+        itemBuilder: (context, index) => Music(song: playlist.songs[index]),
+        itemCount: playlist.songs.length,
+      ),
+    );
+  }
+}
