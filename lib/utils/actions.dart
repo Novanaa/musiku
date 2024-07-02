@@ -62,3 +62,11 @@ void addPlaylistSong(String playlistId, SongModel song) {
   Get.back();
   playlistController.addPlaylistSongs(playlistId, song);
 }
+
+void removePlaylist(String playlistId) {
+  final PlaylistController playlistController = Get.put(PlaylistController());
+
+  showToast("Successfully removed playlist.");
+  playlistController.deletePlaylistState(playlistId);
+  Get.back();
+}
