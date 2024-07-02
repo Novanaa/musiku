@@ -54,4 +54,18 @@ class PlaylistRepository {
     prefrences.setString(playlistKey,
         jsonEncode(playlists.map((value) => value.toJson()).toList()));
   }
+
+  static void editPlaylistName(
+      String playlistId, String newPlaylistName) async {
+    SharedPreferences prefrences = await SharedPreferences.getInstance();
+    List<PlaylistModel> playlists = await getPlaylistState();
+    int playlistIndex = playlists.indexWhere((value) => value.id == playlistId);
+
+    PlaylistModel playlist = playlists[playlistIndex];
+    playlist.title = newPlaylistName;
+    playlists[playlistIndex] = playlist;
+
+    prefrences.setString(playlistKey,
+        jsonEncode(playlists.map((value) => value.toJson()).toList()));
+  }
 }
