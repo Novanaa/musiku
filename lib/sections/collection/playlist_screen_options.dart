@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:musiku/constants/color.dart';
 import 'package:musiku/model.dart';
+import 'package:musiku/screens/collection.dart';
 import 'package:musiku/utils/actions.dart';
 
 void openPlaylistScreenOptions(BuildContext context, PlaylistModel playlist) {
@@ -27,8 +28,9 @@ class PlaylistScreenOptionsDrawer extends StatelessWidget {
         children: [
           InkWell(
             borderRadius: BorderRadius.circular(10),
-            // TODO: Implement add playlist songs feature
-            onTap: () {},
+            onTap: () => Get.to(() => const AddPlaylistSongsScreen(),
+                transition: Transition.cupertino,
+                arguments: {'playlist': playlist}),
             child: Padding(
               padding: const EdgeInsets.only(
                   top: 12, bottom: 12, left: 10, right: 10),
