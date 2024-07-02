@@ -98,8 +98,8 @@ class CollectionItemList {
     return CollectionItem(
       title: playlist.title,
       description: "Playlist",
-      // TODO: Implement view single playlist feature
-      onTap: () {},
+      onTap: () => Get.to(() => PlaylistScreen(),
+          transition: Transition.cupertino, arguments: {'playlist': playlist}),
       iconPath: "assets/icons/playlist.svg",
     );
   }
