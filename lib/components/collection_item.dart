@@ -6,7 +6,6 @@ import 'package:musiku/constants/color.dart';
 import 'package:musiku/controller.dart';
 import 'package:musiku/model.dart' as model;
 import 'package:musiku/screens/collection.dart';
-import 'package:musiku/screens/favorites.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class CollectionItem extends StatelessWidget {
@@ -124,7 +123,7 @@ class CollectionItemList {
     return CollectionItem(
       title: "Favorites",
       description: "Collection",
-      onTap: () => Get.to(() => const FavoritesMusicScreen(),
+      onTap: () => Get.to(() => FavoritesMusicScreen(),
           transition: Transition.cupertino),
       iconPath: "assets/icons/heart.svg",
     );

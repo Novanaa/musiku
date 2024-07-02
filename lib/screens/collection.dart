@@ -459,3 +459,109 @@ class PlaylistScreen extends StatelessWidget {
     );
   }
 }
+
+class FavoritesMusicScreen extends StatelessWidget {
+  FavoritesMusicScreen({super.key});
+
+  final FavoritesMusicController favoritesMusicController =
+      Get.put(FavoritesMusicController());
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: favoritesMusicScreenAppBar(context),
+      body: Column(
+        children: [
+          Stack(
+            children: [
+              favoritesMusicScreenBanner(),
+              favoritesMusicMetadata(),
+            ],
+          ),
+          favoritesMusicList()
+        ],
+      ),
+    );
+  }
+
+  AppBar favoritesMusicScreenAppBar(BuildContext context) => AppBar(
+        foregroundColor: ColorConstants.textColor,
+        backgroundColor: ColorConstants.inputColor,
+      );
+
+  Positioned favoritesMusicScreenBanner() => Positioned(
+        child: ShaderMask(
+          shaderCallback: (rect) {
+            return const LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                ColorConstants.inputColor,
+                ColorConstants.inputColor,
+                Colors.transparent
+              ],
+            ).createShader(rect);
+          },
+          blendMode: BlendMode.dstIn,
+          child: Container(
+            decoration: const BoxDecoration(color: ColorConstants.inputColor),
+            height: 120,
+          ),
+        ),
+      );
+
+  Container favoritesMusicMetadata() => Container(
+        padding: const EdgeInsets.all(15),
+        margin: const EdgeInsets.only(top: 20),
+        child: Row(
+          children: [
+            Container(
+              height: 100,
+              width: 100,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Color.fromARGB(255, 55, 55, 55),
+                        ColorConstants.modalBackgroundColor,
+                      ])),
+              child: Center(
+                child: SvgPicture.asset(
+                  "assets/icons/heart.svg",
+                  width: 30,
+                  height: 30,
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Favorites Music",
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                ),
+                Opacity(opacity: 0.8, child: Text("Collection"))
+              ],
+            )
+          ],
+        ),
+      );
+
+  Expanded favoritesMusicList() {
+    return Expanded(
+      child: ListView.builder(
+        padding: const EdgeInsets.only(bottom: 20),
+        itemBuilder: (context, index) =>
+            Music(song: favoritesMusicController.favoritesMusic[index]),
+        itemCount: favoritesMusicController.favoritesMusic.length,
+      ),
+    );
+  }
+}
