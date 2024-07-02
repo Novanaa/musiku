@@ -11,10 +11,12 @@ import 'package:musiku/utils/actions.dart';
 import 'package:musiku/utils/common.dart';
 import 'package:musiku/utils/player.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:musiku/model.dart' as model;
 
 class PlaylistMusic extends StatelessWidget {
   final SongModel song;
-  PlaylistMusic({super.key, required this.song});
+  final model.PlaylistModel playlist;
+  PlaylistMusic({super.key, required this.song, required this.playlist});
 
   final CurrentMusicPlayedController currentMusicPlayedController =
       Get.put(CurrentMusicPlayedController());
@@ -39,8 +41,8 @@ class PlaylistMusic extends StatelessWidget {
           ),
           GestureDetector(
             child: SvgPicture.asset("assets/icons/music-options.svg"),
-            onTap: () =>
-                openPlaylistMusicOptionsModalBottomSheet(context, song),
+            onTap: () => openPlaylistMusicOptionsModalBottomSheet(
+                context, song, playlist),
           )
         ]),
       ),
@@ -91,17 +93,22 @@ class PlaylistMusic extends StatelessWidget {
 }
 
 void openPlaylistMusicOptionsModalBottomSheet(
-    BuildContext context, SongModel song) {
+    BuildContext context, SongModel song, model.PlaylistModel playlist) {
   showModalBottomSheet(
       context: context,
-      builder: (context) => PlaylistMusicOptions(music: song),
+      builder: (context) => PlaylistMusicOptions(
+            music: song,
+            playlist: playlist,
+          ),
       backgroundColor: ColorConstants.modalBackgroundColor,
       isScrollControlled: true);
 }
 
 class PlaylistMusicOptions extends StatelessWidget {
-  const PlaylistMusicOptions({super.key, required this.music});
+  const PlaylistMusicOptions(
+      {super.key, required this.music, required this.playlist});
   final SongModel music;
+  final model.PlaylistModel playlist;
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +146,7 @@ class PlaylistMusicOptions extends StatelessWidget {
           ),
           InkWell(
             borderRadius: BorderRadius.circular(10),
-            // TODO: Implement remove from playlist feature
+            // TODO: Implement remove music from playlist feature
             onTap: () {},
             child: Padding(
               padding: const EdgeInsets.only(
