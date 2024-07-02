@@ -9,6 +9,7 @@ import 'package:musiku/controller.dart';
 import 'package:musiku/model.dart' as model;
 import 'package:musiku/sections/collection/header.dart';
 import 'package:musiku/sections/collection/list.dart';
+import 'package:musiku/sections/collection/playlist_music.dart';
 import 'package:musiku/utils/common.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -450,7 +451,8 @@ class PlaylistScreen extends StatelessWidget {
     return Expanded(
       child: ListView.builder(
         padding: const EdgeInsets.only(bottom: 20),
-        itemBuilder: (context, index) => Music(song: playlist.songs[index]),
+        itemBuilder: (context, index) =>
+            PlaylistMusic(song: playlist.songs[index]),
         itemCount: playlist.songs.length,
       ),
     );
