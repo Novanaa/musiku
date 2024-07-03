@@ -24,9 +24,9 @@
 
 Musiku is a simple and intuitive music player application designed to provide a seamless music listening experience for users. With Musiku, you can easily manage and play your favorite songs on your device.
 
-## Installation
+## Download
 
-Musiku is under development right now. it will be distributed on musiku official website (Coming soon)
+Musiku available on ([Musiku Landing Page](https://musiku.uncody.site/))
 
 ## Authors
 
