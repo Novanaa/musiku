@@ -1,32 +1,37 @@
 import 'dart:io';
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:musiku/screens/layout.dart';
 import 'package:musiku/screens/welcome.dart';
 import 'package:musiku/utils/events.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 
 Future<bool> checkPermission() async {
-  bool isGranted = await Permission.storage.isGranted;
+  final OnAudioQuery audioQuery = OnAudioQuery();
+  bool isGranted = await audioQuery.permissionsStatus();
 
-  if (!isGranted) Get.to(const WelcomeScreen());
+  if (!isGranted) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      Get.offAll(() => const WelcomeScreen());
+    });
+  }
 
   return isGranted;
 }
 
 Future<void> getPermission() async {
-  bool isGranted = await Permission.storage.isGranted;
+  final OnAudioQuery audioQuery = OnAudioQuery();
+  bool isGranted = await audioQuery.permissionsStatus();
 
   if (!isGranted) {
-    PermissionStatus permissionStatus = await Permission.storage.request();
+    bool isPermissionGranted = await audioQuery.checkAndRequest();
 
-    if (permissionStatus.isGranted) {
+    if (isPermissionGranted) {
       await onApplicationInit();
       Get.offAll(const Layout(), transition: Transition.cupertino);
     }
 
-    if (permissionStatus.isDenied) exit(0);
-
-    if (permissionStatus.isPermanentlyDenied) await openAppSettings();
+    if (!isPermissionGranted) exit(0);
   }
 }
