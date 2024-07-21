@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:musiku/components/add_playlist.dart';
+import 'package:musiku/components/icon.dart';
 import 'package:musiku/constants/color.dart';
 import 'package:musiku/screens/collection.dart';
 
@@ -25,15 +26,17 @@ class CollectionHeader extends StatelessWidget implements PreferredSizeWidget {
             fontWeight: FontWeight.w700),
       ),
       actions: [
-        IconButton(
-          icon: SvgPicture.asset("assets/icons/search.svg"),
+        CustomIconButton(
+          data: Iconsax.search_normal_copy,
+          size: 23,
           onPressed: () => Get.to(const CollectionSearchScreen(),
               transition: Transition.cupertino),
         ),
-        IconButton(
-          icon: SvgPicture.asset("assets/icons/plus.svg"),
+        CustomIconButton(
+          data: Iconsax.add_copy,
           onPressed: () => openAddPlaylistDrawer(context),
-        )
+          size: 30,
+        ),
       ],
     );
   }

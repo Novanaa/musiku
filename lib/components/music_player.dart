@@ -70,7 +70,7 @@ class _MusicPlayerDrawerState extends State<MusicPlayerDrawer> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Color.fromARGB(255, 62, 62, 62),
+              Color.fromARGB(255, 45, 45, 45),
               Color.fromARGB(255, 7, 7, 7),
             ]),
       ),
@@ -218,7 +218,7 @@ class _MusicPlayerDrawerState extends State<MusicPlayerDrawer> {
 
   Container musicPlayerDrawerController(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 10),
+      margin: const EdgeInsets.only(top: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

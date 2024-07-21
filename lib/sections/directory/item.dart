@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:musiku/components/icon.dart';
 import 'package:musiku/model.dart';
 import 'package:musiku/screens/directory.dart';
 
@@ -21,10 +22,9 @@ class DirectoryItem extends StatelessWidget {
             const EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
         child: Row(
           children: [
-            SvgPicture.asset(
-              "assets/icons/folder.svg",
-              width: 35,
-              height: 35,
+            const CustomIcon(
+              data: Iconsax.folder_2_copy,
+              size: 28,
             ),
             const SizedBox(
               width: 10,

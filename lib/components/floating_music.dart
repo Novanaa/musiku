@@ -34,7 +34,7 @@ class FloatingMusic extends StatelessWidget {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: [
-                      Color.fromARGB(255, 55, 55, 55),
+                      Color.fromARGB(255, 47, 47, 47),
                       ColorConstants.modalBackgroundColor,
                     ]),
                 borderRadius: BorderRadius.circular(10)),
@@ -107,46 +107,34 @@ class FloatingMusic extends StatelessWidget {
     );
   }
 
-  Row floatingMusicMetadata(BuildContext context) {
-    return Row(
-      children: [
-        Transform.scale(
-          scale: 1.3,
-          child: SvgPicture.asset(
-            "assets/icons/music.svg",
+  SizedBox floatingMusicMetadata(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.55,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            currentMusicPlayedController
+                    .currentMusicPlayed.value?.music.displayName ??
+                "What do you like to play?",
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14.5),
           ),
-        ),
-        const SizedBox(width: 10),
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.45,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                currentMusicPlayedController
-                        .currentMusicPlayed.value?.music.displayName ??
-                    "What do you like to play?",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                    fontWeight: FontWeight.w500, fontSize: 14.5),
-              ),
-              Opacity(
-                opacity: 0.8,
-                child: Text(
-                  getMusicMetadata(currentMusicPlayedController
-                          .currentMusicPlayed.value?.music) ??
-                      "No music audio history provided!",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontSize: 11.5),
-                ),
-              )
-            ],
-          ),
-        ),
-      ],
+          Opacity(
+            opacity: 0.8,
+            child: Text(
+              getMusicMetadata(currentMusicPlayedController
+                      .currentMusicPlayed.value?.music) ??
+                  "No music audio history provided!",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(fontSize: 11.5),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

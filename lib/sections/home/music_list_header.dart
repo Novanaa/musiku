@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:musiku/components/icon.dart';
 import 'package:musiku/constants/color.dart';
 import 'package:musiku/sections/home/bottom_sheet.dart';
 
@@ -34,8 +36,9 @@ class MusicListHeader extends StatelessWidget {
     return InkWell(
         splashColor: ColorConstants.splashColor,
         onTap: () => openRepeatModeBottomSheet(context),
-        child: SvgPicture.asset(
-          "assets/icons/repeat-mode-options.svg",
+        child: const CustomIcon(
+          data: Iconsax.music_filter,
+          size: 21,
         ));
   }
 
