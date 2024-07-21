@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/route_manager.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:musiku/components/icon.dart';
 import 'package:musiku/constants/color.dart';
 import 'package:musiku/screens/directory.dart';
 import 'package:musiku/sections/directory/info.dart';
@@ -41,13 +43,13 @@ class DirectoryHeader extends StatelessWidget implements PreferredSizeWidget {
         backgroundColor: ColorConstants.modalBackgroundColor);
   }
 
-  IconButton directoryActionSearchButton() {
-    return IconButton(
-        onPressed: () {
-          Get.to(const DirectorySearchScreen(),
-              transition: Transition.cupertino);
-        },
-        icon: SvgPicture.asset("assets/icons/search.svg"));
+  CustomIconButton directoryActionSearchButton() {
+    return CustomIconButton(
+      data: Iconsax.search_normal_copy,
+      size: 23,
+      onPressed: () => Get.to(const DirectorySearchScreen(),
+          transition: Transition.cupertino),
+    );
   }
 
   Text directoryHeaderTitle() {

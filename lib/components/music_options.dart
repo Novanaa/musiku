@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:musiku/components/add_song_playlist.dart';
+import 'package:musiku/components/icon.dart';
 import 'package:musiku/constants/color.dart';
 import 'package:musiku/utils/actions.dart';
 import 'package:musiku/utils/common.dart';
@@ -58,20 +60,16 @@ class MusicOptions extends StatelessWidget {
           InkWell(
             borderRadius: BorderRadius.circular(10),
             onTap: () => openAddSongPlaylistDrawer(context, music),
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  top: 12, bottom: 12, left: 10, right: 10),
+            child: const Padding(
+              padding:
+                  EdgeInsets.only(top: 12, bottom: 12, left: 10, right: 10),
               child: Row(
                 children: [
-                  SvgPicture.asset(
-                    "assets/icons/solid-media-library.svg",
-                    width: 25,
-                    height: 25,
-                  ),
-                  const SizedBox(
+                  CustomIcon(data: Iconsax.save_2_copy),
+                  SizedBox(
                     width: 10,
                   ),
-                  const Text(
+                  Text(
                     "Save To Playlist",
                     style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
                   )

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:musiku/components/icon.dart';
 import 'package:musiku/constants/color.dart';
 
 class SearchScreenBar extends StatefulWidget {
@@ -25,10 +26,9 @@ class _SearchScreenBarState extends State<SearchScreenBar> {
           decoration: InputDecoration(
             filled: true,
             fillColor: ColorConstants.inputColor,
-            prefixIcon: IconButton(
-              onPressed: () {},
-              icon: SvgPicture.asset("assets/icons/search.svg"),
-              color: ColorConstants.iconColor,
+            prefixIcon: const CustomIcon(
+              data: Iconsax.search_normal_copy,
+              size: 24,
             ),
             hintText: "What are you looking for?",
             hintStyle: const TextStyle(
