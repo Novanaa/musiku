@@ -21,7 +21,7 @@ class FloatingMusic extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => Positioned(
-        bottom: 0,
+        bottom: -5,
         width: MediaQuery.of(context).size.width,
         child: GestureDetector(
           onTap: currentMusicPlayedController.currentMusicPlayed.value == null
