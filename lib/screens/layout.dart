@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:musiku/components/floating_music.dart';
 import 'package:musiku/constants/color.dart';
 import 'package:musiku/screens/home.dart';
@@ -27,10 +27,6 @@ class _LayoutState extends State<Layout> {
     const DirectoriesScreen()
   ];
 
-  void onTapped(int index) {
-    setState(() => _selectedIndex = index);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,41 +38,70 @@ class _LayoutState extends State<Layout> {
     );
   }
 
-  BottomNavigationBar bottomNavbar() {
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      backgroundColor: ColorConstants.modalBackgroundColor,
-      showSelectedLabels: false,
-      showUnselectedLabels: false,
-      currentIndex: _selectedIndex,
-      onTap: onTapped,
-      items: [
-        BottomNavigationBarItem(
-          activeIcon: SvgPicture.asset("assets/icons/solid-home.svg",
-              width: 26, height: 26),
-          icon:
-              SvgPicture.asset("assets/icons/home.svg", width: 26, height: 26),
-          label: "Home",
-        ),
-        BottomNavigationBarItem(
-            activeIcon: SvgPicture.asset("assets/icons/solid-search.svg",
-                width: 26, height: 26),
-            icon: SvgPicture.asset("assets/icons/search.svg",
-                width: 26, height: 26),
-            label: "Search"),
-        BottomNavigationBarItem(
-            activeIcon: SvgPicture.asset("assets/icons/solid-media-library.svg",
-                width: 26, height: 26),
-            icon: SvgPicture.asset("assets/icons/media-library.svg",
-                width: 26, height: 26),
-            label: "Collection"),
-        BottomNavigationBarItem(
-            activeIcon: SvgPicture.asset("assets/icons/solid-folder.svg",
-                width: 26, height: 26),
-            icon: SvgPicture.asset("assets/icons/folder.svg",
-                width: 26, height: 26),
-            label: "Directory")
-      ],
+  NavigationBarTheme bottomNavbar() {
+    return NavigationBarTheme(
+      data: const NavigationBarThemeData(
+          labelTextStyle: WidgetStatePropertyAll(TextStyle(
+        color: ColorConstants.textColor,
+        fontFamily: "Poppins",
+        fontWeight: FontWeight.w500,
+        fontSize: 12.5,
+      ))),
+      child: NavigationBar(
+        indicatorColor: ColorConstants.iconColor,
+        backgroundColor: ColorConstants.backgroundColor,
+        selectedIndex: _selectedIndex,
+        onDestinationSelected: (int index) =>
+            setState(() => _selectedIndex = index),
+        elevation: 0,
+        height: 70,
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(
+              Iconsax.home_1_copy,
+              color: ColorConstants.iconColor,
+            ),
+            label: "Home",
+            selectedIcon: Icon(
+              Iconsax.home,
+              color: ColorConstants.backgroundColor,
+            ),
+          ),
+          NavigationDestination(
+            icon: Icon(
+              Iconsax.search_normal_copy,
+              color: ColorConstants.iconColor,
+            ),
+            label: "Search",
+            selectedIcon: Icon(
+              Iconsax.search_normal,
+              color: ColorConstants.backgroundColor,
+            ),
+          ),
+          NavigationDestination(
+            icon: Icon(
+              Iconsax.save_2_copy,
+              color: ColorConstants.iconColor,
+            ),
+            label: "Collection",
+            selectedIcon: Icon(
+              Iconsax.save_2,
+              color: ColorConstants.backgroundColor,
+            ),
+          ),
+          NavigationDestination(
+            icon: Icon(
+              Iconsax.folder_2_copy,
+              color: ColorConstants.iconColor,
+            ),
+            label: "Directory",
+            selectedIcon: Icon(
+              Iconsax.folder_2,
+              color: ColorConstants.backgroundColor,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
